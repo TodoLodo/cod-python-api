@@ -21,7 +21,7 @@ class API:
         # Variables
 
         # headers & cookies
-        self.fakeXSRF = uuid.uuid4()
+        self.fakeXSRF = str(uuid.uuid4())
         self.userAgent: str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
         self.baseCookie: str = "new_SiteId=cod;ACT_SSO_LOCALE=en_US;country=US;"
         self.baseSsoToken: str
@@ -70,7 +70,8 @@ class API:
             h = self.basePostHeaders
 
         try:
-            return requests.request(method=method, url=url, headers=h, data=b)
+            r = requests.request(method=method, url=url, headers=h, data=b)
+            return r
         except Exception as e:
             return e
 
@@ -119,6 +120,11 @@ class API:
             "cookie"] = f'{self.baseCookie}ACT_SSO_COOKIE={ssoToken};XSRF-TOKEN={self.fakeXSRF};API_CSRF_TOKEN={self.fakeXSRF};ACT_SSO_EVENT="LOGIN_SUCCESS:1644346543228";ACT_SSO_COOKIE_EXPIRY=1645556143194;comid=cod;ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;tfa_enrollment_seen=true;gtm.custom.bot.flag=human;'
         self.loggedIn = True
 
+        self.Warzone.loggedIn = self.ModernWarfare.loggedIn = self.ColdWar.loggedIn = self.Vanguard.loggedIn = self.Shop.loggedIn = self.Me.loggedIn = self.Misc.loggedIn = self.loggedIn
+        self.Warzone.baseSsoToken = self.ModernWarfare.baseSsoToken = self.ColdWar.baseSsoToken = self.Vanguard.baseSsoToken = self.Shop.baseSsoToken = self.Me.baseSsoToken = self.Misc.baseSsoToken = self.baseSsoToken
+        self.Warzone.baseHeaders = self.ModernWarfare.baseHeaders = self.ColdWar.baseHeaders = self.Vanguard.baseHeaders = self.Shop.baseHeaders = self.Me.baseHeaders = self.Misc.baseHeaders = self.baseHeaders
+        self.Warzone.basePostHeaders = self.ModernWarfare.basePostHeaders = self.ColdWar.basePostHeaders = self.Vanguard.basePostHeaders = self.Shop.basePostHeaders = self.Me.basePostHeaders = self.Misc.basePostHeaders = self.basePostHeaders
+
     # client name url formatter
     def cleanClientName(self, ganertage):
         return quote(ganertage.encode("utf-8"))
@@ -136,26 +142,25 @@ class API:
     # API Requests
     async def fullDataReq(self, game, platform, gamertag, type):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        print(self.fullDataUrl % (game, platform.name, lookUpType, gamertag, type))
-        return await self.sendRequest(self.fullDataUrl % (game, platform.name, lookUpType, gamertag, type))
+        return await self.sendRequest(self.fullDataUrl % (game, platform.value, lookUpType, gamertag, type))
 
     async def combatHistoryReq(self, game, platform, gamertag, type, start, end):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.combatHistoryUrl % (game, platform.name, lookUpType, gamertag, type, start, end))
+        return await self.sendRequest(self.combatHistoryUrl % (game, platform.value, lookUpType, gamertag, type, start, end))
 
     async def breakdownReq(self, game, platform, gamertag, type, start, end):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.breakdownUrl % (game, platform.name, lookUpType, gamertag, type, start, end))
+        return await self.sendRequest(self.breakdownUrl % (game, platform.value, lookUpType, gamertag, type, start, end))
 
     async def seasonLootReq(self, game, platform, gamertag):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.seasonLootUrl % (game, platform.name, lookupType, gamertag))
+        return await self.sendRequest(self.seasonLootUrl % (game, platform.value, lookUpType, gamertag))
 
     async def mapListReq(self, game, platform):
-        return await self.sendRequest(self.endPoints.mapListUrl % (game, platform.name))
+        return await self.sendRequest(self.mapListUrl % (game, platform.value))
 
     async def matchInforReq(self, game, platform, type, matchId):
-        return await self.sendRequest(self.matchInfoUrl % (game, platform.name, type, matchId))
+        return await self.sendRequest(self.matchInfoUrl % (game, platform.value, type, matchId))
 
 
 # WZ
@@ -166,114 +171,181 @@ class WZ(API):
 
     async def combatHistory(self, platform, gamertag: str):
         data = await self.combatHistoryReq("mw", platform, gamertag, "wz", 0, 0)
+        return data
 
     async def combatHistoryWithDate(self, platform, gamertag: str, start:int, end:int):
         data = await self.combatHistoryReq("mw", platform, gamertag, "wz", start, end)
+        return data
 
     async def breakdown(self, platform, gamertag: str):
         data = await self.breakdownReq("mw", platform, gamertag, "wz", 0, 0)
+        return data
 
     async def breakdownWithDate(self, platform, gamertag: str, start:int, end:int):
         data = await self.breakdownReq("mw", platform, gamertag, "wz", start, end)
+        return data
 
     async def matchInfo(self, platform, matchId:int):
         data = await self.matchInforReq("mw", platform, "wz", matchId)
+        return data
 
 
 # MW
 class MW(API):
     async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("mw", platform, gamertag, "mp")
+        return data
 
     async def combatHistory(self, platform, gamertag: str):
         data = await self.combatHistoryReq("mw", platform, gamertag, "mp", 0, 0)
+        return data
 
     async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
         data = await self.combatHistoryReq("mw", platform, gamertag, "mp", start, end)
+        return data
 
     async def breakdown(self, platform, gamertag: str):
         data = await self.breakdownReq("mw", platform, gamertag, "mp", 0, 0)
+        return data
 
     async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
         data = await self.breakdownReq("mw", platform, gamertag, "mp", start, end)
+        return data
 
     async def seasonLoot(self, platform, gamertag):
         data = await self.seasonLootReq("mw", platform, gamertag)
+        return data
 
     async def mapList(self, platform):
         data = await self.mapListReq("mw", platform)
+        return data
 
     async def matchInfo(self, platform, matchId: int):
         data = await self.matchInforReq("mw", platform, "mp", matchId)
+        return data
 
 
 # CW
 class CW(API):
     async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("cw", platform, gamertag, "mp")
+        return data
 
     async def combatHistory(self, platform, gamertag: str):
         data = await self.combatHistoryReq("cw", platform, gamertag, "mp", 0, 0)
+        return data
 
     async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
         data = await self.combatHistoryReq("cw", platform, gamertag, "mp", start, end)
+        return data
 
     async def breakdown(self, platform, gamertag: str):
         data = await self.breakdownReq("cw", platform, gamertag, "mp", 0, 0)
+        return data
 
     async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
         data = await self.breakdownReq("cw", platform, gamertag, "mp", start, end)
+        return data
 
     async def seasonLoot(self, platform, gamertag):
         data = await self.seasonLootReq("cw", platform, gamertag)
+        return data
 
     async def mapList(self, platform):
         data = await self.mapListReq("cw", platform)
+        return data
 
     async def matchInfo(self, platform, matchId: int):
         data = await self.matchInforReq("cw", platform, "mp", matchId)
+        return data
 
 
 # VG
 class VG(API):
     async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("vg", platform, gamertag, "mp")
+        return data
 
     async def combatHistory(self, platform, gamertag: str):
         data = await self.combatHistoryReq("vg", platform, gamertag, "mp", 0, 0)
+        return data
 
     async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
         data = await self.combatHistoryReq("vg", platform, gamertag, "mp", start, end)
+        return data
 
     async def breakdown(self, platform, gamertag: str):
         data = await self.breakdownReq("vg", platform, gamertag, "mp", 0, 0)
+        return data
 
     async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
         data = await self.breakdownReq("vg", platform, gamertag, "mp", start, end)
+        return data
 
     async def seasonLoot(self, platform, gamertag):
         data = await self.seasonLootReq("vg", platform, gamertag)
+        return data
 
     async def mapList(self, platform):
         data = await self.mapListReq("vg", platform)
+        return data
 
     async def matchInfo(self, platform, matchId: int):
         data = await self.matchInforReq("vg", platform, "mp", matchId)
+        return data
 
 
 # SHOP
 class SHOP(API):
-    ...
+    async def purchasableItems(self, game: str):
+        data = await self.sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en")
+        return data
+
+    async def bundleInformation(self, game: str, bundleId):
+        data = await self.sendRequest(f"/inventory/v1/title/{game}/bundle/${bundleId}/en")
+
+    async def battlePassLoot(self, platform, season:int):
+        data = await self.sendRequest(f"/loot/title/mw/platform/{platform.value}/list/loot_season_{season}/en")
+        return data
 
 
 # USER
 class USER(API):
-    ...
+    async def friendFeed(self, platform, gamertag:str):
+        lookUpType, gamertag = self.helper(platform, gamertag)
+        data = await self.sendRequest(f"/userfeed/v1/friendFeed/platform/{platform.value}/gamer/{gamertag}/friendFeedEvents/en")
+        return data
+
+    async def eventFeed(self):
+        data = await self.sendRequest(f"/userfeed/v1/friendFeed/rendered/en/{self.baseSsoToken}")
+        return data
+
+    async def loggedInIdentities(self):
+        data = await self.sendRequest(f"/crm/cod/v2/identities/{self.baseSsoToken}")
+        return data
+
+    async def codPoints(self, platform, gamertag:str):
+        lookUpType, gamertag = self.helper(platform, gamertag)
+        data = await self.sendRequest(f"/inventory/v1/title/mw/platform/{platform.value}/gamer/{gamertag}/currency")
+        return data
+
+    async def connectedAccounts(self, platform, gamertag:str):
+        lookUpType, gamertag = self.helper(platform, gamertag)
+        data = await self.sendRequest(f"/crm/cod/v2/accounts/platform/{platform.value}/{lookUpType}/{gamertag}")
+        return data
+
+    async def settings(self, platform, gamertag:str):
+        lookUpType, gamertag = self.helper(platform, gamertag)
+        data = await self.sendRequest(f"/preferences/v1/platform/{platform.value}/gamer/{gamertag}/list")
+        return data
 
 
 # ALT
 class ALT(API):
-    ...
+    async def search(self, platform, gamertag:str):
+        lookUpType, gamertag = self.helper(platform, gamertag)
+        data = await self.sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search")
+        return data
 
 
 # Enums
@@ -285,6 +357,13 @@ class platforms(enum.Enum):
     Steam = 'steam'
     Uno = 'uno'
     XBOX = 'xbl'
+
+
+class games(enum.Enum):
+    ColdWar = 'cw'
+    ModernWarfare = 'mw'
+    Vanguard = 'vg'
+    Warzone = 'wz'
 
 
 class friendActions(enum.Enum):

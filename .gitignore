@@ -2,6 +2,7 @@
 .idea
 __pycache__
 /cod_api.egg-info/
+dist
 /Include/
 /Lib/
 Lib

@@ -8,8 +8,8 @@ requirements = ["requests", "uuid", "urllib3", "enum34"]
 setup(
     name="cod_api",
     version="0.0.3",
-    author="Todo Lodo",
-    author_email="me@todolodo.xyz",
+    author="Todo Lodo, Engineer15",
+    author_email="me@todolodo.xyz, engineergamer15@gmail.com",
     description="Call Of Duty API",
     long_description=readme,
     long_description_content_type="text/markdown",

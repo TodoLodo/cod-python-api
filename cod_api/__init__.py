@@ -1,1 +1,1 @@
-from cod_api.cod_api import API
+from cod_api.cod_api import API, platforms, games, friendActions

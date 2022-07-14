@@ -45,7 +45,20 @@ class API:
         # Class Variables
         self.Warzone = self.ModernWarfare = self.ColdWar = self.Vanguard = self.Shop = self.Me = self.Misc = None
 
-        self.endPoints = None
+        # endPoints
+
+        # game platform lookupType gamertag type
+        self.fullDataUrl = "/stats/cod/v1/title/%s/platform/%s/%s/%s/profile/type/%s"
+        # game platform lookupType gamertag type start end [?limit=n or '']
+        self.combatHistoryUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d/details"
+        # game platform lookupType gamertag type start end
+        self.breakdownUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d"
+        # game platform lookupType gamertag
+        self.seasonLootUrl = "/loot/title/%s/platform/%s/%s/%s/status/en"
+        # game platform
+        self.mapListUrl = "/ce/v1/title/%s/platform/%s/gameType/mp/communityMapData/availability"
+        # game platform type matchId
+        self.matchInfoUrl = "/crm/cod/v2/title/%s/platform/%s/fullMatch/%s/%d/en"
 
     # Requests
     async def __Request(self, method, url):
@@ -82,8 +95,6 @@ class API:
 
     # Login
     def login(self, ssoToken: str):
-        print("ssss")
-        self.endPoints = endPoints()
         self.Warzone = WZ()
         self.ModernWarfare = MW()
         self.ColdWar = CW()
@@ -125,24 +136,33 @@ class API:
     # API Requests
     async def fullDataReq(self, game, platform, gamertag, type):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.endPoints.fullDataUrl % (game, platform, lookUpType, gamertag, type))
+        print(self.fullDataUrl % (game, platform.name, lookUpType, gamertag, type))
+        return await self.sendRequest(self.fullDataUrl % (game, platform.name, lookUpType, gamertag, type))
 
     async def combatHistoryReq(self, game, platform, gamertag, type, start, end):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.endPoints.combatHistoryUrl % (game, platform, lookUpType, gamertag, type, start, end))
+        return await self.sendRequest(self.combatHistoryUrl % (game, platform.name, lookUpType, gamertag, type, start, end))
 
     async def breakdownReq(self, game, platform, gamertag, type, start, end):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.endPoints.breakdownUrl % (game, platform, lookUpType, gamertag, type, start, end))
+        return await self.sendRequest(self.breakdownUrl % (game, platform.name, lookUpType, gamertag, type, start, end))
+
+    async def seasonLootReq(self, game, platform, gamertag):
+        lookUpType, gamertag = self.helper(platform, gamertag)
+        return await self.sendRequest(self.seasonLootUrl % (game, platform.name, lookupType, gamertag))
+
+    async def mapListReq(self, game, platform):
+        return await self.sendRequest(self.endPoints.mapListUrl % (game, platform.name))
 
     async def matchInforReq(self, game, platform, type, matchId):
-        return await self.sendRequest(self.endPoints.matchInfoUrl % (game, platform, type, matchId))
+        return await self.sendRequest(self.matchInfoUrl % (game, platform.name, type, matchId))
 
 
 # WZ
 class WZ(API):
     async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("mw", platform,  gamertag, "wz")
+        return data
 
     async def combatHistory(self, platform, gamertag: str):
         data = await self.combatHistoryReq("mw", platform, gamertag, "wz", 0, 0)
@@ -160,35 +180,85 @@ class WZ(API):
         data = await self.matchInforReq("mw", platform, "wz", matchId)
 
 
-# endPoints
-class endPoints:
-    # game platform lookupType gamertag type
-    fullDataUrl = "/stats/cod/v1/title/%s/platform/%s/%s/%s/profile/type/%s"
-    # game platform lookupType gamertag type start end [?limit=n or '']
-    combatHistoryUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d/details"
-    # game platform lookupType gamertag type start end
-    breakdownUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d"
-    # game platform lookupType gamertag
-    seasonLootUrl = "/loot/title/%s/platform/%s/%s/%s/status/en"
-    # game platform
-    mapListUrl = "/ce/v1/title/%s/platform/%s/gameType/mp/communityMapData/availability"
-    # game platform type matchId
-    matchInfoUrl = "/crm/cod/v2/title/%s/platform/%s/fullMatch/%s/%d/en"
-
-
 # MW
 class MW(API):
-    ...
+    async def fullData(self, platform, gamertag: str):
+        data = await self.fullDataReq("mw", platform, gamertag, "mp")
+
+    async def combatHistory(self, platform, gamertag: str):
+        data = await self.combatHistoryReq("mw", platform, gamertag, "mp", 0, 0)
+
+    async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
+        data = await self.combatHistoryReq("mw", platform, gamertag, "mp", start, end)
+
+    async def breakdown(self, platform, gamertag: str):
+        data = await self.breakdownReq("mw", platform, gamertag, "mp", 0, 0)
+
+    async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
+        data = await self.breakdownReq("mw", platform, gamertag, "mp", start, end)
+
+    async def seasonLoot(self, platform, gamertag):
+        data = await self.seasonLootReq("mw", platform, gamertag)
+
+    async def mapList(self, platform):
+        data = await self.mapListReq("mw", platform)
+
+    async def matchInfo(self, platform, matchId: int):
+        data = await self.matchInforReq("mw", platform, "mp", matchId)
 
 
 # CW
 class CW(API):
-    ...
+    async def fullData(self, platform, gamertag: str):
+        data = await self.fullDataReq("cw", platform, gamertag, "mp")
+
+    async def combatHistory(self, platform, gamertag: str):
+        data = await self.combatHistoryReq("cw", platform, gamertag, "mp", 0, 0)
+
+    async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
+        data = await self.combatHistoryReq("cw", platform, gamertag, "mp", start, end)
+
+    async def breakdown(self, platform, gamertag: str):
+        data = await self.breakdownReq("cw", platform, gamertag, "mp", 0, 0)
+
+    async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
+        data = await self.breakdownReq("cw", platform, gamertag, "mp", start, end)
+
+    async def seasonLoot(self, platform, gamertag):
+        data = await self.seasonLootReq("cw", platform, gamertag)
+
+    async def mapList(self, platform):
+        data = await self.mapListReq("cw", platform)
+
+    async def matchInfo(self, platform, matchId: int):
+        data = await self.matchInforReq("cw", platform, "mp", matchId)
 
 
 # VG
 class VG(API):
-    ...
+    async def fullData(self, platform, gamertag: str):
+        data = await self.fullDataReq("vg", platform, gamertag, "mp")
+
+    async def combatHistory(self, platform, gamertag: str):
+        data = await self.combatHistoryReq("vg", platform, gamertag, "mp", 0, 0)
+
+    async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
+        data = await self.combatHistoryReq("vg", platform, gamertag, "mp", start, end)
+
+    async def breakdown(self, platform, gamertag: str):
+        data = await self.breakdownReq("vg", platform, gamertag, "mp", 0, 0)
+
+    async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
+        data = await self.breakdownReq("vg", platform, gamertag, "mp", start, end)
+
+    async def seasonLoot(self, platform, gamertag):
+        data = await self.seasonLootReq("vg", platform, gamertag)
+
+    async def mapList(self, platform):
+        data = await self.mapListReq("vg", platform)
+
+    async def matchInfo(self, platform, matchId: int):
+        data = await self.matchInforReq("vg", platform, "mp", matchId)
 
 
 # SHOP

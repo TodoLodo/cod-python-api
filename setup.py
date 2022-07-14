@@ -7,7 +7,7 @@ requirements = ["requests", "uuid", "urllib3", "enum34"]
 
 setup(
     name="cod_api",
-    version="0.0.1",
+    version="0.0.2",
     author="Todo Lodo",
     author_email="me@todolodo.xyz",
     description="Call Of Duty API",

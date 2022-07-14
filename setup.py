@@ -6,7 +6,7 @@ with open("README.md", "r") as readme_file:
 requirements = ["requests", "uuid", "urllib", "enum"]
 
 setup(
-    name="notebookc",
+    name="cod api",
     version="0.0.1",
     author="Todo Lodo",
     author_email="me@todolodo.xyz",

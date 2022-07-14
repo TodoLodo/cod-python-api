@@ -2,3 +2,4 @@ enum34
 requests
 urllib3
 uuid
+twine

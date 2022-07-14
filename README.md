@@ -36,7 +36,7 @@ api = API()
 Login with your sso token
 
 ```
-api.login('Your soo token')
+api.login('Your sso token')
 ```
 You sso token can be found by longing in at [callofduty](https://my.callofduty.com/), opening dev tools (ctr+shift+I),
 going to Applications > Storage > Cookies > <span>https</span>://callofduty.com, filter to search 'ACT_SSO_COOKIE' and 

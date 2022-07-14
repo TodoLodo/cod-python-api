@@ -19,7 +19,7 @@ git clone https://github.com/TodoLodo2089/cod-python-api.git
 As a python library
 
 ```
-pip install git+https://github.com/TodoLodo2089/cod-python-api.git
+pip install cod-api
 ```
 <br>
 

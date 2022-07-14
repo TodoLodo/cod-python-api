@@ -8,3 +8,5 @@ Lib
 Scripts
 /pyvenv.cfg
 /git-update.bat
+/test-pypi-update.bat
+/pypi-update.bat

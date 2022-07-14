@@ -1,10 +1,12 @@
 # cod-python-api
 **Call Of Duty API Library** for **python** with the implementation of both public and private API used by activision on 
 callofduty.com
-
+<br>
+<br>
 ## Devs
 [Todo Lodo](https://github.com/TodoLodo2089) and [Engineer15](https://github.com/Engineer152)
-
+<br>
+<br>
 ## Documentation
 This package can be used directly as a python file or as a python library
 ### Installation

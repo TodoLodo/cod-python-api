@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 with open("README.md", "r") as readme_file:
     readme = readme_file.read()
@@ -13,8 +13,8 @@ setup(
     description="Call Of Duty API",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/TodoLodo2089/cod-python-api.git",
-    packages=find_packages(),
+    url="https://github.com/TodoLodo2089/cod-python-api",
+    packages=['cod_api'],
     install_requires=requirements,
     classifiers=[],
 )

@@ -43,30 +43,9 @@ class API:
         }
 
         # Class Variables
-        self.Warzone = __WZ()
-        self.ModernWarfare = __MW()
-        self.ColdWar = __CW()
-        self.Vanguard = __VG()
-        self.Shop = __SHOP()
-        self.Me = __USER()
-        self.Misc = __ALT()
+        self.Warzone = self.ModernWarfare = self.ColdWar = self.Vanguard = self.Shop = self.Me = self.Misc = None
 
-        self.endPoints = self.endPoints()
-
-        # endPoints
-        class endPoints:
-            # game platform lookupType gamertag type
-            fullDataUrl = "/stats/cod/v1/title/%s/platform/%s/%s/%s/profile/type/%s"
-            # game platform lookupType gamertag type start end [?limit=n or '']
-            combatHistoryUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d/details"
-            # game platform lookupType gamertag type start end
-            breakdownUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d"
-            # game platform lookupType gamertag
-            seasonLootUrl = "/loot/title/%s/platform/%s/%s/%s/status/en"
-            # game platform
-            mapListUrl = "/ce/v1/title/%s/platform/%s/gameType/mp/communityMapData/availability"
-            # game platform type matchId
-            matchInfoUrl = "/crm/cod/v2/title/%s/platform/%s/fullMatch/%s/%d/en"
+        self.endPoints = None
 
     # Requests
     async def __Request(self, method, url):
@@ -103,6 +82,15 @@ class API:
 
     # Login
     def login(self, ssoToken: str):
+        print("ssss")
+        self.endPoints = endPoints()
+        self.Warzone = WZ()
+        self.ModernWarfare = MW()
+        self.ColdWar = CW()
+        self.Vanguard = VG()
+        self.Shop = SHOP()
+        self.Me = USER()
+        self.Misc = ALT()
         self.baseHeaders["__X-XSRF-TOKEN"] = self.fakeXSRF
         self.baseHeaders["__X-CSRF-TOKEN"] = self.fakeXSRF
         self.baseHeaders["Atvi-Auth"] = ssoToken
@@ -151,54 +139,70 @@ class API:
         return await self.sendRequest(self.endPoints.matchInfoUrl % (game, platform, type, matchId))
 
 
-# __WZ
-class __WZ(API):
-    async def fullData(self, platform: platforms, gamertag: str):
+# WZ
+class WZ(API):
+    async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("mw", platform,  gamertag, "wz")
 
-    async def combatHistory(self, platform: platforms, gamertag: str):
+    async def combatHistory(self, platform, gamertag: str):
         data = await self.combatHistoryReq("mw", platform, gamertag, "wz", 0, 0)
 
-    async def combatHistoryWithDate(self, platform: platforms, gamertag: str, start:int, end:int):
+    async def combatHistoryWithDate(self, platform, gamertag: str, start:int, end:int):
         data = await self.combatHistoryReq("mw", platform, gamertag, "wz", start, end)
 
-    async def breakdown(self, platform: platforms, gamertag: str):
+    async def breakdown(self, platform, gamertag: str):
         data = await self.breakdownReq("mw", platform, gamertag, "wz", 0, 0)
 
-    async def breakdownWithDate(self, platform: platforms, gamertag: str, start:int, end:int):
+    async def breakdownWithDate(self, platform, gamertag: str, start:int, end:int):
         data = await self.breakdownReq("mw", platform, gamertag, "wz", start, end)
 
-    async def matchInfo(self, platform:platforms, matchId:int):
+    async def matchInfo(self, platform, matchId:int):
         data = await self.matchInforReq("mw", platform, "wz", matchId)
 
 
+# endPoints
+class endPoints:
+    # game platform lookupType gamertag type
+    fullDataUrl = "/stats/cod/v1/title/%s/platform/%s/%s/%s/profile/type/%s"
+    # game platform lookupType gamertag type start end [?limit=n or '']
+    combatHistoryUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d/details"
+    # game platform lookupType gamertag type start end
+    breakdownUrl = "/crm/cod/v2/title/%s/platform/%s/%s/%s/matches/%s/start/%d/end/%d"
+    # game platform lookupType gamertag
+    seasonLootUrl = "/loot/title/%s/platform/%s/%s/%s/status/en"
+    # game platform
+    mapListUrl = "/ce/v1/title/%s/platform/%s/gameType/mp/communityMapData/availability"
+    # game platform type matchId
+    matchInfoUrl = "/crm/cod/v2/title/%s/platform/%s/fullMatch/%s/%d/en"
+
+
 # MW
-class __MW(API):
+class MW(API):
     ...
 
 
 # CW
-class __CW(API):
+class CW(API):
     ...
 
 
 # VG
-class __VG(API):
+class VG(API):
     ...
 
 
 # SHOP
-class __SHOP(API):
+class SHOP(API):
     ...
 
 
 # USER
-class __USER(API):
+class USER(API):
     ...
 
 
 # ALT
-class __ALT(API):
+class ALT(API):
     ...
 
 

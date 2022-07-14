@@ -1,3 +1,9 @@
 /test.py
 .idea
 __pycache__
+/cod_api.egg-info/
+/Include/
+/Lib/
+Lib
+Scripts
+/pyvenv.cfg

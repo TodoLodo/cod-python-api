@@ -1,4 +1,4 @@
-enum
+enum34
 requests
-urllib
+urllib3
 uuid

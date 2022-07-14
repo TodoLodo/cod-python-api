@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as readme_file:
     readme = readme_file.read()
 
-requirements = ["requests", "uuid", "urllib", "enum"]
+requirements = ["requests", "uuid", "urllib3", "enum34"]
 
 setup(
     name="cod api",

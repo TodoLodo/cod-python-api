@@ -4,3 +4,4 @@ requests
 twine
 urllib3
 uuid
+sphinx-tabs

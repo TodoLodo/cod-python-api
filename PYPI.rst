@@ -18,13 +18,7 @@ This package can be used directly as a python file or as a python library.
 Installation
 ------------
 
-For direct use:
-
-.. code-block:: bash
-
-    git clone https://github.com/TodoLodo2089/cod-python-api.git
-
-As a python library using `pip`_:
+Install cod-api library using `pip`_:
 
 .. code-block:: bash
 
@@ -54,7 +48,7 @@ Login with your sso token
     api.login('Your sso token')
 
 You sso token can be found by longing in at `callofduty`_, opening dev tools (ctr+shift+I),
-going to Applications > Storage > Cookies > :samp:`https://callofduty.com`, filter to search 'ACT_SSO_COOKIE' and
+going to Applications > Storage > Cookies > https://callofduty.com, filter to search 'ACT_SSO_COOKIE' and
 copy the value
 
 .. _callofduty: https://my.callofduty.com/
@@ -73,70 +67,71 @@ and following are available sub classes
 
 To retrieve detailed description of each subclass `__doc__` (docstring) of each sub class can be called as shown below:
 
-.. tabs::
+`ColdWar`
 
-    .. tab:: ColdWar
+.. code-block:: python
 
-        .. code-block:: python
+    from cod_api import API
 
-            from cod_api import API
+    api = API()
 
-            api = API()
+    # print out the docstring
+    print(api.ColdWar)
 
-            # print out the docstring
-            print(api.ColdWar)
+`ModernWarfe`
 
-    .. tab:: ModernWarfare
+.. code-block:: python
 
-        .. code-block:: python
+    from cod_api import API
 
-            from cod_api import API
+    api = API()
 
-            api = API()
+    # print out the docstring
+    print(api.ModernWarfare)
 
-            # print out the docstring
-            print(api.ModernWarfare)
+`Vanguard`
 
-    .. tab:: Vanguard
+.. code-block:: python
 
-        .. code-block:: python
+    from cod_api import API
 
-            from cod_api import API
+    api = API()
 
-            api = API()
+    # print out the docstring
+    print(api.Vanguard)
 
-            # print out the docstring
-            print(api.Vanguard)
+`Warzone`
 
-    .. tab:: Warzone
+.. code-block:: python
 
-        .. code-block:: python
+    from cod_api import API
 
-            from cod_api import API
+    api = API()
 
-            api = API()
+    # print out the docstring
+    print(api.Warzone)
 
-            # print out the docstring
-            print(api.Warzone)
+`Me`
 
-    .. tab:: Me
+.. code-block:: python
 
-        .. code-block:: python
+    from cod_api import API
 
-            from cod_api import API
+    api = API()
 
-            api = API()
+    # print out the docstring
+    print(api.Me)
 
-            # print out the docstring
-            print(api.Me)
+`Misc`
 
-    .. tab:: Misc
+.. code-block:: python
 
-        .. code-block:: python
+    from cod_api import API
 
-            from cod_api import API
+    api = API()
 
-            api = API()
+    # print out the docstring
+    print(api.Misc)
 
-            # print out the docstring
-            print(api.Misc)
+.. image:: https://github.com/executablebooks/sphinx-tabs/workflows/continuous-integration/badge.svg?branch=master
+    :target: https://github.com/TodoLodo2089/cod-python-api.git

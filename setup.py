@@ -1,6 +1,6 @@
 from setuptools import setup
 
-requirements = ["asyncio", "requests", "uuid", "urllib3", "enum34"]
+requirements = ["asyncio", "requests", "uuid", "urllib3", "enum34", "sphinx-tabs"]
 
 setup(
     name="cod_api",

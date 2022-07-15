@@ -17,29 +17,38 @@ Installation
 
 For direct use:
 
-.. code-block:: shell
-    :caption: Documentation/Installation
+.. code-block:: text
 
     git clone https://github.com/TodoLodo2089/cod-python-api.git
 
-As a python library:
-    pip install cod-api
+As a python library using `pip`_:
+
+.. code-block:: text
+
+    pip install -U cod-api
+
+.. _pip: https://pip.pypa.io/en/stable/getting-started/
 
 Usage
 =====
+
 Initiation
 ----------
-Import module with its classes
 
-from cod_api import API, platforms, games, friendActions
+Import module with its classes:
 
-api = API()
+.. code-block:: python
+
+    from cod_api import API
+
+    api = API()
 
 
 Login with your sso token
 
+.. code-block:: python
 
-api.login('Your sso token')
+    api.login('Your sso token')
 
 You sso token can be found by longing in at [callofduty](https://my.callofduty.com/), opening dev tools (ctr+shift+I),
 going to Applications > Storage > Cookies > <span>https</span>://callofduty.com, filter to search 'ACT_SSO_COOKIE' and 

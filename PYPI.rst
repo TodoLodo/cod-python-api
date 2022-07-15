@@ -1,6 +1,10 @@
 ==============
 cod-python-api
 ==============
+
+.. image:: https://github.com/TodoLodo2089/cod-python-api/actions/workflows/github-actions.yml/badge.svg?branch=main
+    :target: https://github.com/TodoLodo2089/cod-python-api.git
+
 **Call Of Duty API Library** for **python** with the implementation of both public and private API used by activision on 
 callofduty.com
 
@@ -132,6 +136,3 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
 
     # print out the docstring
     print(api.Misc)
-
-.. image:: https://github.com/executablebooks/sphinx-tabs/workflows/continuous-integration/badge.svg?branch=master
-    :target: https://github.com/TodoLodo2089/cod-python-api.git

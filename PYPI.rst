@@ -201,3 +201,28 @@ Here's an example for retrieving **Warzone** combat history of a player whose ga
 
     # printing results to console
     print(hist)
+
+The ``combatHistoryWithDate()`` takes 4 input parameteres which are platform, gamertag, start and end of type
+`cod_api.platforms`_, string, int and int respectively
+
+start and end parameters are utc timestamps in microseconds
+
+Here's an example for retrieving **ModernWarfare** combat history of a player whose gamer tag is **Username#1234567** on
+platform **Activision** with in the timestamps **1657919309** (Friday, 15 July 2022 21:08:29) and **1657949309**
+(Saturday, 16 July 2022 05:28:29)
+
+.. code-block:: python
+
+    from cod_api import API, platforms
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving combat history
+    hist = api.Warzone.combatHistory(platforms.Activision, "Username#1234567", 1657919309, 1657949309) # returns data of type dict
+
+    # printing results to console
+    print(hist)

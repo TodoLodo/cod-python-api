@@ -75,15 +75,15 @@ and following are available sub classes
 +=================+==========+
 |* `ColdWar`_     | game     |
 +-----------------+----------+
-|* ``ModernWarfe``| game     |
+|* `ModernWarfe`_ | game     |
 +-----------------+----------+
-|* ``Vanguard``   | game     |
+|* `Vanguard`_    | game     |
 +-----------------+----------+
-|* ``Warzone``    | game     |
+|* `Warzone`_     | game     |
 +-----------------+----------+
-|* ``Me``         | other    |
+|* `Me`_          | other    |
 +-----------------+----------+
-|* ``Misc``       | other    |
+|* `Misc`_        | other    |
 +-----------------+----------+
 
 
@@ -103,6 +103,8 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     # print out the docstring
     print(api.ColdWar)
 
+.. _`ModernWarfe`:
+
 `ModernWarfe`
 
 .. code-block:: python
@@ -113,6 +115,8 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
 
     # print out the docstring
     print(api.ModernWarfare)
+
+.. _`Vanguard`:
 
 `Vanguard`
 
@@ -125,6 +129,8 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     # print out the docstring
     print(api.Vanguard)
 
+.. _`Warzone`:
+
 `Warzone`
 
 .. code-block:: python
@@ -136,6 +142,8 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     # print out the docstring
     print(api.Warzone)
 
+.. _`Me`:
+
 `Me`
 
 .. code-block:: python
@@ -146,6 +154,8 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
 
     # print out the docstring
     print(api.Me)
+
+.. _`Misc`:
 
 `Misc`
 

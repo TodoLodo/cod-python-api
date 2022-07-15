@@ -1,11 +1,37 @@
 # Imports
+import asyncio
 import enum
 import requests
 from urllib.parse import quote
 import uuid
 
+# Enums
+class platforms(enum.Enum):
+    All = 'all'
+    Activision = 'uno'
+    Battlenet = 'battle'
+    PSN = 'psn'
+    Steam = 'steam'
+    Uno = 'uno'
+    XBOX = 'xbl'
 
-class API:
+
+class games(enum.Enum):
+    ColdWar = 'cw'
+    ModernWarfare = 'mw'
+    Vanguard = 'vg'
+    Warzone = 'wz'
+
+
+class friendActions(enum.Enum):
+    Invite = "invite"
+    Uninvite = "uninvite"
+    Remove = "remove"
+    Block = "block"
+    Unblock = "unblock"
+
+
+class __main__:
     customHeaders: dict = {
         "__X-XSRF-TOKEN": str or None,
         "__X-CSRF-TOKEN": str or None,
@@ -24,7 +50,7 @@ class API:
         self.fakeXSRF = str(uuid.uuid4())
         self.userAgent: str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
         self.baseCookie: str = "new_SiteId=cod;ACT_SSO_LOCALE=en_US;country=US;"
-        self.baseSsoToken: str
+        self.baseSsoToken: str = ''
         self.baseUrl: str = "https://my.callofduty.com"
         self.apiPath: str = "/api/papi-client"
         self.loggedIn: bool = False
@@ -41,9 +67,6 @@ class API:
             "cookie": self.baseCookie,
             "user-agent": self.userAgent
         }
-
-        # Class Variables
-        self.Warzone = self.ModernWarfare = self.ColdWar = self.Vanguard = self.Shop = self.Me = self.Misc = None
 
         # endPoints
 
@@ -94,37 +117,6 @@ class API:
                 else:
                     return respond.status_code
 
-    # Login
-    def login(self, ssoToken: str):
-        self.Warzone = WZ()
-        self.ModernWarfare = MW()
-        self.ColdWar = CW()
-        self.Vanguard = VG()
-        self.Shop = SHOP()
-        self.Me = USER()
-        self.Misc = ALT()
-        self.baseHeaders["__X-XSRF-TOKEN"] = self.fakeXSRF
-        self.baseHeaders["__X-CSRF-TOKEN"] = self.fakeXSRF
-        self.baseHeaders["Atvi-Auth"] = ssoToken
-        self.baseHeaders["ACT_SSO_COOKIE"] = ssoToken
-        self.baseHeaders["atkn"] = ssoToken
-        self.baseHeaders[
-            "cookie"] = f'{self.baseCookie}ACT_SSO_COOKIE={ssoToken};XSRF-TOKEN={self.fakeXSRF};API_CSRF_TOKEN={self.fakeXSRF};ACT_SSO_EVENT="LOGIN_SUCCESS:1644346543228";ACT_SSO_COOKIE_EXPIRY=1645556143194;comid=cod;ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;tfa_enrollment_seen=true;gtm.custom.bot.flag=human;'
-        self.baseSsoToken = ssoToken
-        self.basePostHeaders["__X-XSRF-TOKEN"] = self.fakeXSRF
-        self.basePostHeaders["__X-CSRF-TOKEN"] = self.fakeXSRF
-        self.basePostHeaders["Atvi-Auth"] = ssoToken
-        self.basePostHeaders["ACT_SSO_COOKIE"] = ssoToken
-        self.basePostHeaders["atkn"] = ssoToken
-        self.basePostHeaders[
-            "cookie"] = f'{self.baseCookie}ACT_SSO_COOKIE={ssoToken};XSRF-TOKEN={self.fakeXSRF};API_CSRF_TOKEN={self.fakeXSRF};ACT_SSO_EVENT="LOGIN_SUCCESS:1644346543228";ACT_SSO_COOKIE_EXPIRY=1645556143194;comid=cod;ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;tfa_enrollment_seen=true;gtm.custom.bot.flag=human;'
-        self.loggedIn = True
-
-        self.Warzone.loggedIn = self.ModernWarfare.loggedIn = self.ColdWar.loggedIn = self.Vanguard.loggedIn = self.Shop.loggedIn = self.Me.loggedIn = self.Misc.loggedIn = self.loggedIn
-        self.Warzone.baseSsoToken = self.ModernWarfare.baseSsoToken = self.ColdWar.baseSsoToken = self.Vanguard.baseSsoToken = self.Shop.baseSsoToken = self.Me.baseSsoToken = self.Misc.baseSsoToken = self.baseSsoToken
-        self.Warzone.baseHeaders = self.ModernWarfare.baseHeaders = self.ColdWar.baseHeaders = self.Vanguard.baseHeaders = self.Shop.baseHeaders = self.Me.baseHeaders = self.Misc.baseHeaders = self.baseHeaders
-        self.Warzone.basePostHeaders = self.ModernWarfare.basePostHeaders = self.ColdWar.basePostHeaders = self.Vanguard.basePostHeaders = self.Shop.basePostHeaders = self.Me.basePostHeaders = self.Misc.basePostHeaders = self.basePostHeaders
-
     # client name url formatter
     def cleanClientName(self, ganertage):
         return quote(ganertage.encode("utf-8"))
@@ -132,7 +124,8 @@ class API:
     # helper
     def helper(self, platform, gamertag):
         lookUpType = "id" if platform == platforms.Uno else "gamer"
-        if platform not in [platforms.Activision, platforms.Battlenet, platforms.Uno, platforms.All, platforms.PSN, platforms.XBOX]:
+        if platform not in [platforms.Activision, platforms.Battlenet, platforms.Uno, platforms.All, platforms.PSN,
+                            platforms.XBOX]:
             raise InvalidPlatform(platform)
         else:
             if platform in [platforms.Activision, platforms.Battlenet, platforms.Uno]:
@@ -146,11 +139,13 @@ class API:
 
     async def combatHistoryReq(self, game, platform, gamertag, type, start, end):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.combatHistoryUrl % (game, platform.value, lookUpType, gamertag, type, start, end))
+        return await self.sendRequest(
+            self.combatHistoryUrl % (game, platform.value, lookUpType, gamertag, type, start, end))
 
     async def breakdownReq(self, game, platform, gamertag, type, start, end):
         lookUpType, gamertag = self.helper(platform, gamertag)
-        return await self.sendRequest(self.breakdownUrl % (game, platform.value, lookUpType, gamertag, type, start, end))
+        return await self.sendRequest(
+            self.breakdownUrl % (game, platform.value, lookUpType, gamertag, type, start, end))
 
     async def seasonLootReq(self, game, platform, gamertag):
         lookUpType, gamertag = self.helper(platform, gamertag)
@@ -164,12 +159,27 @@ class API:
 
 
 # WZ
-class WZ(API):
-    async def fullData(self, platform, gamertag: str):
+class WZ(__main__):
+    """
+    Warzone class: A class to get players warzone stats
+
+    Methods
+    -------
+    fullData(platform:platforms, gamertagLstr)
+        returns player's game data of type dict
+
+    combatHistory(platform:platforms, gamertag:str)
+        returns player's combat history of type dict
+
+    combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
+        returns player's combat history within the specified timeline of type dict
+    """
+
+    async def fullData(self, platform:platforms, gamertag: str):
         data = await self.fullDataReq("mw", platform,  gamertag, "wz")
         return data
 
-    async def combatHistory(self, platform, gamertag: str):
+    async def combatHistory(self, platform: platforms, gamertag: str):
         data = await self.combatHistoryReq("mw", platform, gamertag, "wz", 0, 0)
         return data
 
@@ -191,7 +201,7 @@ class WZ(API):
 
 
 # MW
-class MW(API):
+class MW(__main__):
     async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("mw", platform, gamertag, "mp")
         return data
@@ -226,7 +236,7 @@ class MW(API):
 
 
 # CW
-class CW(API):
+class CW(__main__):
     async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("cw", platform, gamertag, "mp")
         return data
@@ -261,7 +271,7 @@ class CW(API):
 
 
 # VG
-class VG(API):
+class VG(__main__):
     async def fullData(self, platform, gamertag: str):
         data = await self.fullDataReq("vg", platform, gamertag, "mp")
         return data
@@ -296,7 +306,7 @@ class VG(API):
 
 
 # SHOP
-class SHOP(API):
+class SHOP(__main__):
     async def purchasableItems(self, game: str):
         data = await self.sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en")
         return data
@@ -310,7 +320,7 @@ class SHOP(API):
 
 
 # USER
-class USER(API):
+class USER(__main__):
     async def friendFeed(self, platform, gamertag:str):
         lookUpType, gamertag = self.helper(platform, gamertag)
         data = await self.sendRequest(f"/userfeed/v1/friendFeed/platform/{platform.value}/gamer/{gamertag}/friendFeedEvents/en")
@@ -341,37 +351,53 @@ class USER(API):
 
 
 # ALT
-class ALT(API):
+class ALT(__main__):
     async def search(self, platform, gamertag:str):
         lookUpType, gamertag = self.helper(platform, gamertag)
         data = await self.sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search")
         return data
 
 
-# Enums
-class platforms(enum.Enum):
-    All = 'all'
-    Activision = 'uno'
-    Battlenet = 'battle'
-    PSN = 'psn'
-    Steam = 'steam'
-    Uno = 'uno'
-    XBOX = 'xbl'
+class API(__main__):
+    def __init__(self):
+        super(API, self).__init__()
+        self.Warzone = WZ()
+        self.ModernWarfare = MW()
+        self.ColdWar = CW()
+        self.Vanguard = VG()
+        self.Shop = SHOP()
+        self.Me = USER()
+        self.Misc = ALT()
+
+    # Login
+    def login(self, ssoToken: str):
+        self.baseHeaders["__X-XSRF-TOKEN"] = self.fakeXSRF
+        self.baseHeaders["__X-CSRF-TOKEN"] = self.fakeXSRF
+        self.baseHeaders["Atvi-Auth"] = ssoToken
+        self.baseHeaders["ACT_SSO_COOKIE"] = ssoToken
+        self.baseHeaders["atkn"] = ssoToken
+        self.baseHeaders[
+            "cookie"] = f'{self.baseCookie}ACT_SSO_COOKIE={ssoToken};XSRF-TOKEN={self.fakeXSRF};API_CSRF_TOKEN={self.fakeXSRF};ACT_SSO_EVENT="LOGIN_SUCCESS:1644346543228";ACT_SSO_COOKIE_EXPIRY=1645556143194;comid=cod;ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;tfa_enrollment_seen=true;gtm.custom.bot.flag=human;'
+        self.baseSsoToken = ssoToken
+        self.basePostHeaders["__X-XSRF-TOKEN"] = self.fakeXSRF
+        self.basePostHeaders["__X-CSRF-TOKEN"] = self.fakeXSRF
+        self.basePostHeaders["Atvi-Auth"] = ssoToken
+        self.basePostHeaders["ACT_SSO_COOKIE"] = ssoToken
+        self.basePostHeaders["atkn"] = ssoToken
+        self.basePostHeaders[
+            "cookie"] = f'{self.baseCookie}ACT_SSO_COOKIE={ssoToken};XSRF-TOKEN={self.fakeXSRF};API_CSRF_TOKEN={self.fakeXSRF};ACT_SSO_EVENT="LOGIN_SUCCESS:1644346543228";ACT_SSO_COOKIE_EXPIRY=1645556143194;comid=cod;ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;tfa_enrollment_seen=true;gtm.custom.bot.flag=human;'
+        self.loggedIn = True
+
+        for sub in [self.Warzone, self.ModernWarfare, self.ColdWar, self.Vanguard, self.Shop, self.Me, self.Misc]:
+            sub.loggedIn = self.loggedIn
+            sub.baseSsoToken = self.baseSsoToken
+            sub.baseHeaders = self.baseHeaders
+            sub.basePostHeaders = self.basePostHeaders
 
 
-class games(enum.Enum):
-    ColdWar = 'cw'
-    ModernWarfare = 'mw'
-    Vanguard = 'vg'
-    Warzone = 'wz'
-
-
-class friendActions(enum.Enum):
-    Invite = "invite"
-    Uninvite = "uninvite"
-    Remove = "remove"
-    Block = "block"
-    Unblock = "unblock"
+class NotLoggedIn(Exception):
+    def __str__(self):
+        return "Not logged in!"
 
 
 class InvalidPlatform(Exception):

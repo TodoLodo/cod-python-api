@@ -1,30 +1,29 @@
-# cod-python-api
+==============
+cod-python-api
+==============
 **Call Of Duty API Library** for **python** with the implementation of both public and private API used by activision on 
 callofduty.com
-<br>
-<br>
-## Devs
+
+Devs
+====
 [Todo Lodo](https://github.com/TodoLodo2089) and [Engineer15](https://github.com/Engineer152)
-<br>
-<br>
-## Documentation
+
+Documentation
+=============
 This package can be used directly as a python file or as a python library
-### Installation
- For direct use 
- <br>
-```
-git clone https://github.com/TodoLodo2089/cod-python-api.git
-```
-<br>
-As a python library
 
-```
-pip install cod-api
-```
-<br>
+Installation
+------------
+For direct use::
+    git clone https://github.com/TodoLodo2089/cod-python-api.git
 
-### Usage
-#### Initiation
+As a python library::
+    pip install cod-api
+
+Usage
+=====
+Initiation
+----------
 Import module with its classes
 <br>
 ```

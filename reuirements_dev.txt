@@ -1,5 +1,6 @@
+asyncio
 enum34
 requests
+twine
 urllib3
 uuid
-twine

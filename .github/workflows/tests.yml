@@ -6,9 +6,10 @@ on:
     tags:
       - 'v*'
   pull_request:
-  # Run weekly to check for breaking changes in unpinned dependencies
+  # Run daily at 10am and 10pm
   schedule:
     - cron: '0 10,22 * * *'
+
 jobs: 
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest

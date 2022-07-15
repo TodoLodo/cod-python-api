@@ -10,11 +10,15 @@ Devs
 
 Documentation
 =============
-This package can be used directly as a python file or as a python library
+This package can be used directly as a python file or as a python library.
 
 Installation
 ------------
-For direct use::
+
+For direct use:
+
+.. code-block:: shell
+    :caption: git_clone
     git clone https://github.com/TodoLodo2089/cod-python-api.git
 
 As a python library::

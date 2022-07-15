@@ -92,9 +92,7 @@ and following are available sub classes
 
 For a detailed description of each subclass, `__doc__` (docstring) of each sub class can be called as shown below:
 
-.. _ColdWar: .. _`ColdWa`
-
-.. _`ColdWa`:
+.. _`ColdWar`:
 
 `ColdWar`
 
@@ -177,4 +175,27 @@ Combat History
 
 Any sub class of ``API``  of catogery game has methods to check a player's combat history.
 Note that before calling any methods of sub classes of ``API`` you must be `logged in`_.
-Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` which is available for `C`
+Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` which are available for all ``ColdWar``,
+``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes
+
+The ``combatHistory()`` takes 2 input parameteres which are platform and gamertag of type `cod_api.platforms`_ and
+string respectively
+
+Here's an example for retrieving **Warzone** combat history of a player whose gamer tag is **Username#1234** on platform
+**Battlenet**
+
+.. code-block:: python
+
+    from cod_api import API, platforms
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving combat history
+    hist = api.Warzone.combatHistory(platforms.Battlenet, "Username#1234") # returns data of type dict
+
+    # printing results to console
+    print(hist)

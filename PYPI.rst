@@ -101,7 +101,7 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     api = API()
 
     # print out the docstring
-    print(api.ColdWar)
+    print(api.ColdWar.__doc__)
 
 .. _`ModernWarfe`:
 
@@ -114,7 +114,7 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     api = API()
 
     # print out the docstring
-    print(api.ModernWarfare)
+    print(api.ModernWarfare.__doc__)
 
 .. _`Vanguard`:
 
@@ -127,7 +127,7 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     api = API()
 
     # print out the docstring
-    print(api.Vanguard)
+    print(api.Vanguard.__doc__)
 
 .. _`Warzone`:
 
@@ -140,7 +140,7 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     api = API()
 
     # print out the docstring
-    print(api.Warzone)
+    print(api.Warzone.__doc__)
 
 .. _`Me`:
 
@@ -153,7 +153,7 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     api = API()
 
     # print out the docstring
-    print(api.Me)
+    print(api.Me.__doc__)
 
 .. _`Misc`:
 
@@ -166,4 +166,4 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
     api = API()
 
     # print out the docstring
-    print(api.Misc)
+    print(api.Misc.__doc__)

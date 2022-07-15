@@ -51,10 +51,10 @@ Login with your sso token
     api.login('Your sso token')
 
 You sso token can be found by longing in at `callofduty`_, opening dev tools (ctr+shift+I),
-going to Applications > Storage > Cookies > <span>https</span>://callofduty.com, filter to search 'ACT_SSO_COOKIE' and 
+going to Applications > Storage > Cookies > https://callofduty.com, filter to search 'ACT_SSO_COOKIE' and
 copy the value
 
-.._callofduty: https://my.callofduty.com/
+.. _callofduty: https://my.callofduty.com/
 
 Retrieving game profile
 -----------------------

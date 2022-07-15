@@ -64,6 +64,8 @@ A player's game profile can be retrieved by using API sub game classes with its 
 
 .. code-block:: python
 
+    from API import platforms
+
     profileData = api.ModernWarfare.fullData(platforms.Battlenet, "Username#1234")
 
 *Output* > json

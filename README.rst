@@ -17,13 +17,13 @@ Installation
 
 For direct use:
 
-.. code-block:: text
+.. code-block:: bash
 
     git clone https://github.com/TodoLodo2089/cod-python-api.git
 
 As a python library using `pip`_:
 
-.. code-block:: text
+.. code-block:: bash
 
     pip install -U cod-api
 

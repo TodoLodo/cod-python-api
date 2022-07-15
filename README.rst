@@ -50,16 +50,21 @@ Login with your sso token
 
     api.login('Your sso token')
 
-You sso token can be found by longing in at [callofduty](https://my.callofduty.com/), opening dev tools (ctr+shift+I),
+You sso token can be found by longing in at `callofduty`_, opening dev tools (ctr+shift+I),
 going to Applications > Storage > Cookies > <span>https</span>://callofduty.com, filter to search 'ACT_SSO_COOKIE' and 
 copy the value
-<br><br>
-#### Retrieving game profile
+
+.._callofduty: https://my.callofduty.com/
+
+Retrieving game profile
+-----------------------
 A player's game profile can be retrieved by using API sub game classes with its function fullData(platform, gamertag)
 
-*Example*
+*Example*:
 
-profileData = api.ModernWarfare.fullData(platforms.Battlenet, "Username#1234")
+.. code-block:: python
+
+    profileData = api.ModernWarfare.fullData(platforms.Battlenet, "Username#1234")
 
 *Output* > json
 
@@ -68,8 +73,10 @@ Retrieving combat history
 A player's game profile can be retrieved by using API sub game classes with its functions combatHistory(platform, gamertag) or 
 combatHistoryWithDate(platform, gamertag, start, end)
 
-*Example*
+*Example*:
 
-matchHistory = api.Warzone.combatHistory(platforms.Activision, "Username#123456")
+.. code-block:: python
+
+    matchHistory = api.Warzone.combatHistory(platforms.Activision, "Username#123456")
 
 *Output* > json

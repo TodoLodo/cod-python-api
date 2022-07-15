@@ -8,10 +8,8 @@ on:
   pull_request:
   # Run weekly to check for breaking changes in unpinned dependencies
   schedule:
-    - cron: '0 18 * * 5'
-    
- jobs:
- 
+    - cron: '0 10,22 * * *'
+jobs: 
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:

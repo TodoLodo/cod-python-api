@@ -70,19 +70,21 @@ Game/Other sub classes
 Following importation and initiation of the class ``API`` its associated subclasses can be called by :python:``API.subClassName``
 and following are available sub classes
 
-+-----------------+-------+
-|* ``ColdWar``    | game  |
-+-----------------+-------+
-|* ``ModernWarfe``| game  |
-+-----------------+-------+
-|* ``Vanguard``   | game  |
-+-----------------+-------+
-|* ``Warzone``    | game  |
-+-----------------+-------+
-|* ``Me``         | other |
-+-----------------+-------+
-|* ``Misc``       | other |
-+-----------------+-------+
++-----------------+----------+
+| sub class       | catogery |
++=================+==========+
+|* ``ColdWar``    | game     |
++-----------------+----------+
+|* ``ModernWarfe``| game     |
++-----------------+----------+
+|* ``Vanguard``   | game     |
++-----------------+----------+
+|* ``Warzone``    | game     |
++-----------------+----------+
+|* ``Me``         | other    |
++-----------------+----------+
+|* ``Misc``       | other    |
++-----------------+----------+
 
 To retrieve detailed description of each subclass `__doc__` (docstring) of each sub class can be called as shown below:
 

@@ -2,7 +2,7 @@
 cod-python-api
 ==============
 
-.. image:: https://github.com/TodoLodo2089/cod-python-api/actions/workflows/github-actions.yml/badge.svg?branch=main
+.. image:: https://github.com/TodoLodo2089/cod-python-api/actions/workflows/tests.yml/badge.svg?branch=main
     :target: https://github.com/TodoLodo2089/cod-python-api.git
 
 .. image:: https://badge.fury.io/py/cod-api.svg

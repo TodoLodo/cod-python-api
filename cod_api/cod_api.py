@@ -179,7 +179,7 @@ class WZ(__main__):
         data = await self.fullDataReq("mw", platform,  gamertag, "wz")
         return data
 
-    async def combatHistory(self, platform: platforms, gamertag: str):
+    async def combatHistory(self, platform: platforms, gamertag: str, verbose:bool=False, mapping:bool=False):
         data = await self.combatHistoryReq("mw", platform, gamertag, "wz", 0, 0)
         return data
 

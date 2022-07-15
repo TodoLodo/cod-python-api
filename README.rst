@@ -6,7 +6,10 @@ callofduty.com
 
 Devs
 ====
-[Todo Lodo](https://github.com/TodoLodo2089) and [Engineer15](https://github.com/Engineer152)
+`Todo Lodo`_ and `Engineer15`_
+
+.. _Todo Lodo: https://github.com/TodoLodo2089
+.. _Engineer15: https://github.com/Engineer152
 
 Documentation
 =============

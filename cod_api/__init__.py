@@ -1,3 +1,3 @@
 from cod_api.cod_api import API, platforms, games, friendActions
 
-__version__ = "0.0.4dev0"
+__version__ = "0.0.5dev0"

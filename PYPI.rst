@@ -53,6 +53,8 @@ Import module with its classes:
     api = API()
 
 
+.. _`logged in`:
+
 Login with your sso token
 
 .. code-block:: python
@@ -67,7 +69,7 @@ copy the value
 
 Game/Other sub classes
 ~~~~~~~~~~~~~~~~~~~~~~
-Following importation and initiation of the class ``API`` its associated subclasses can be called by :python:``API.subClassName``
+Following importation and initiation of the class ``API`` its associated subclasses can be called by ``API.subClassName``
 and following are available sub classes
 
 +-----------------+----------+
@@ -88,9 +90,11 @@ and following are available sub classes
 
 
 
-To retrieve detailed description of each subclass `__doc__` (docstring) of each sub class can be called as shown below:
+For a detailed description of each subclass, `__doc__` (docstring) of each sub class can be called as shown below:
 
-.. _`ColdWar`:
+.. _ColdWar: _`ColdWa`
+
+.. _`ColdWa`:
 
 `ColdWar`
 
@@ -167,3 +171,10 @@ To retrieve detailed description of each subclass `__doc__` (docstring) of each 
 
     # print out the docstring
     print(api.Misc.__doc__)
+
+Combat History
+~~~~~~~~~~~~~~
+
+Any sub class of ``API``  of catogery game has methods to check a player's combat history.
+Note that before calling any methods of sub classes of ``API`` you must be `logged in`_.
+Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` which is available for `C`

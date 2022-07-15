@@ -92,7 +92,7 @@ and following are available sub classes
 
 For a detailed description of each subclass, `__doc__` (docstring) of each sub class can be called as shown below:
 
-.. _ColdWar: _`ColdWa`
+.. _ColdWar: .. _`ColdWa`
 
 .. _`ColdWa`:
 

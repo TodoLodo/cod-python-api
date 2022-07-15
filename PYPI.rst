@@ -8,6 +8,9 @@ cod-python-api
 .. image:: https://badge.fury.io/py/cod-api.svg
     :target: https://badge.fury.io/py/cod-api
 
+.. image:: https://badge.fury.io/gh/TodoLodo2089%2Fcod-python-api.svg
+    :target: https://badge.fury.io/gh/TodoLodo2089%2Fcod-python-api
+
 **Call Of Duty API Library** for **python** with the implementation of both public and private API used by activision on 
 callofduty.com
 

@@ -71,11 +71,11 @@ and following are available sub classes
 * `Me`          - other
 * `Misc`        - other
 
-To retrieve detailed description of each subclass `__doc__`(docstring) of each sub class can be called as shown below
+To retrieve detailed description of each subclass `__doc__` (docstring) of each sub class can be called as shown below:
 
 .. tabs::
 
-    .. group-tab:: ColdWar
+    .. tab:: ColdWar
 
         .. code-block:: python
 
@@ -86,7 +86,7 @@ To retrieve detailed description of each subclass `__doc__`(docstring) of each s
             # print out the docstring
             print(api.ColdWar)
 
-    .. group-tab:: ModernWarfare
+    .. tab:: ModernWarfare
 
         .. code-block:: python
 
@@ -97,7 +97,7 @@ To retrieve detailed description of each subclass `__doc__`(docstring) of each s
             # print out the docstring
             print(api.ModernWarfare)
 
-    .. group-tab:: Vanguard
+    .. tab:: Vanguard
 
         .. code-block:: python
 
@@ -108,7 +108,7 @@ To retrieve detailed description of each subclass `__doc__`(docstring) of each s
             # print out the docstring
             print(api.Vanguard)
 
-    .. group-tab:: Warzone
+    .. tab:: Warzone
 
         .. code-block:: python
 
@@ -119,7 +119,7 @@ To retrieve detailed description of each subclass `__doc__`(docstring) of each s
             # print out the docstring
             print(api.Warzone)
 
-    .. group-tab:: Me
+    .. tab:: Me
 
         .. code-block:: python
 
@@ -130,7 +130,7 @@ To retrieve detailed description of each subclass `__doc__`(docstring) of each s
             # print out the docstring
             print(api.Me)
 
-    .. group-tab:: Misc
+    .. tab:: Misc
 
         .. code-block:: python
 

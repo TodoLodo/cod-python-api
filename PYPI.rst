@@ -73,7 +73,7 @@ and following are available sub classes
 +-----------------+----------+
 | sub class       | catogery |
 +=================+==========+
-|* ``ColdWar``    | game     |
+|* `ColdWar`_     | game     |
 +-----------------+----------+
 |* ``ModernWarfe``| game     |
 +-----------------+----------+
@@ -86,7 +86,11 @@ and following are available sub classes
 |* ``Misc``       | other    |
 +-----------------+----------+
 
+
+
 To retrieve detailed description of each subclass `__doc__` (docstring) of each sub class can be called as shown below:
+
+.. _`ColdWar`:
 
 `ColdWar`
 

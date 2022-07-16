@@ -1,12 +1,10 @@
-.. toctree::
-
-   intro
-   All about strings <strings>
-   datatypes
-
 ===================
 **cod-python-api**
 ===================
+
+.. meta::
+    :description: Call Of Duty API Library for python with the implementation of both public and private API used by activision on callofduty.com
+    :key: CallOfDuty API, CallOfDuty python API, CallOfDuty python
 
 .. image:: https://github.com/TodoLodo2089/cod-python-api/actions/workflows/tests.yml/badge.svg?branch=main
     :target: https://github.com/TodoLodo2089/cod-python-api.git

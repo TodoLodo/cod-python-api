@@ -98,7 +98,7 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 
 .. _`ColdWar`:
 
-``ColdWar``
+``ColdWar``:
 
 .. code-block:: python
 
@@ -111,7 +111,7 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 
 .. _`ModernWarfare`:
 
-``ModernWarfare``
+``ModernWarfare``:
 
 .. code-block:: python
 
@@ -124,7 +124,7 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 
 .. _`Vanguard`:
 
-``Vanguard``
+``Vanguard``:
 
 .. code-block:: python
 
@@ -137,7 +137,7 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 
 .. _`Warzone`:
 
-``Warzone``
+``Warzone``:
 
 .. code-block:: python
 
@@ -150,7 +150,7 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 
 .. _`Me`:
 
-``Me``
+``Me``:
 
 .. code-block:: python
 

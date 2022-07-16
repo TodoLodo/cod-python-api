@@ -230,7 +230,7 @@ class API:
         """
 
         async def fullData(self, platform:platforms, gamertag: str):
-            data = await self.__fullDataReq("mw", platform, gamertag, "wz")
+            data = await self._common__fullDataReq("mw", platform, gamertag, "wz")
             return data
 
         async def combatHistory(self, platform: platforms, gamertag: str):
@@ -238,138 +238,138 @@ class API:
             return data
 
         async def combatHistoryWithDate(self, platform, gamertag: str, start:int, end:int):
-            data = await self.__combatHistoryReq("mw", platform, gamertag, "wz", start, end)
+            data = await self._common__combatHistoryReq("mw", platform, gamertag, "wz", start, end)
             return data
 
         async def breakdown(self, platform, gamertag: str):
-            data = await self.__breakdownReq("mw", platform, gamertag, "wz", 0, 0)
+            data = await self._common__breakdownReq("mw", platform, gamertag, "wz", 0, 0)
             return data
 
         async def breakdownWithDate(self, platform, gamertag: str, start:int, end:int):
-            data = await self.__breakdownReq("mw", platform, gamertag, "wz", start, end)
+            data = await self._common__breakdownReq("mw", platform, gamertag, "wz", start, end)
             return data
 
         async def matchInfo(self, platform, matchId:int):
-            data = await self.__matchInforReq("mw", platform, "wz", matchId)
+            data = await self._common__matchInforReq("mw", platform, "wz", matchId)
             return data
 
 
     # MW
     class __MW(__common):
         async def fullData(self, platform, gamertag: str):
-            data = await self.__fullDataReq("mw", platform, gamertag, "mp")
+            data = await self._common__fullDataReq("mw", platform, gamertag, "mp")
             return data
 
         async def combatHistory(self, platform, gamertag: str):
-            data = await self.__combatHistoryReq("mw", platform, gamertag, "mp", 0, 0)
+            data = await self._common__combatHistoryReq("mw", platform, gamertag, "mp", 0, 0)
             return data
 
         async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self.__combatHistoryReq("mw", platform, gamertag, "mp", start, end)
+            data = await self._common__combatHistoryReq("mw", platform, gamertag, "mp", start, end)
             return data
 
         async def breakdown(self, platform, gamertag: str):
-            data = await self.__breakdownReq("mw", platform, gamertag, "mp", 0, 0)
+            data = await self._common__breakdownReq("mw", platform, gamertag, "mp", 0, 0)
             return data
 
         async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self.__breakdownReq("mw", platform, gamertag, "mp", start, end)
+            data = await self._common__breakdownReq("mw", platform, gamertag, "mp", start, end)
             return data
 
         async def seasonLoot(self, platform, gamertag):
-            data = await self.__seasonLootReq("mw", platform, gamertag)
+            data = await self._common__seasonLootReq("mw", platform, gamertag)
             return data
 
         async def mapList(self, platform):
-            data = await self.__mapListReq("mw", platform)
+            data = await self._common__mapListReq("mw", platform)
             return data
 
         async def matchInfo(self, platform, matchId: int):
-            data = await self.__matchInforReq("mw", platform, "mp", matchId)
+            data = await self._common__matchInforReq("mw", platform, "mp", matchId)
             return data
 
 
     # CW
     class __CW(__common):
         async def fullData(self, platform, gamertag: str):
-            data = await self.__fullDataReq("cw", platform, gamertag, "mp")
+            data = await self._common__fullDataReq("cw", platform, gamertag, "mp")
             return data
 
         async def combatHistory(self, platform, gamertag: str):
-            data = await self.__combatHistoryReq("cw", platform, gamertag, "mp", 0, 0)
+            data = await self._common__combatHistoryReq("cw", platform, gamertag, "mp", 0, 0)
             return data
 
         async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self.__combatHistoryReq("cw", platform, gamertag, "mp", start, end)
+            data = await self._common__combatHistoryReq("cw", platform, gamertag, "mp", start, end)
             return data
 
         async def breakdown(self, platform, gamertag: str):
-            data = await self.__breakdownReq("cw", platform, gamertag, "mp", 0, 0)
+            data = await self._common__breakdownReq("cw", platform, gamertag, "mp", 0, 0)
             return data
 
         async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self.__breakdownReq("cw", platform, gamertag, "mp", start, end)
+            data = await self._common__breakdownReq("cw", platform, gamertag, "mp", start, end)
             return data
 
         async def seasonLoot(self, platform, gamertag):
-            data = await self.__seasonLootReq("cw", platform, gamertag)
+            data = await self._common__seasonLootReq("cw", platform, gamertag)
             return data
 
         async def mapList(self, platform):
-            data = await self.__mapListReq("cw", platform)
+            data = await self._common__mapListReq("cw", platform)
             return data
 
         async def matchInfo(self, platform, matchId: int):
-            data = await self.__matchInforReq("cw", platform, "mp", matchId)
+            data = await self._common__matchInforReq("cw", platform, "mp", matchId)
             return data
 
 
     # VG
     class __VG(__common):
         async def fullData(self, platform, gamertag: str):
-            data = await self.__fullDataReq("vg", platform, gamertag, "mp")
+            data = await self._common__fullDataReq("vg", platform, gamertag, "mp")
             return data
 
         async def combatHistory(self, platform, gamertag: str):
-            data = await self.__combatHistoryReq("vg", platform, gamertag, "mp", 0, 0)
+            data = await self._common__combatHistoryReq("vg", platform, gamertag, "mp", 0, 0)
             return data
 
         async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self.__combatHistoryReq("vg", platform, gamertag, "mp", start, end)
+            data = await self._common__combatHistoryReq("vg", platform, gamertag, "mp", start, end)
             return data
 
         async def breakdown(self, platform, gamertag: str):
-            data = await self.__breakdownReq("vg", platform, gamertag, "mp", 0, 0)
+            data = await self._common__breakdownReq("vg", platform, gamertag, "mp", 0, 0)
             return data
 
         async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self.__breakdownReq("vg", platform, gamertag, "mp", start, end)
+            data = await self._common__breakdownReq("vg", platform, gamertag, "mp", start, end)
             return data
 
         async def seasonLoot(self, platform, gamertag):
-            data = await self.__seasonLootReq("vg", platform, gamertag)
+            data = await self._common__seasonLootReq("vg", platform, gamertag)
             return data
 
         async def mapList(self, platform):
-            data = await self.__mapListReq("vg", platform)
+            data = await self._common__mapListReq("vg", platform)
             return data
 
         async def matchInfo(self, platform, matchId: int):
-            data = await self.__matchInforReq("vg", platform, "mp", matchId)
+            data = await self._common__matchInforReq("vg", platform, "mp", matchId)
             return data
 
 
     # SHOP
     class __SHOP(__common):
         async def purchasableItems(self, game: str):
-            data = await self.__sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en")
+            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en")
             return data
 
         async def bundleInformation(self, game: str, bundleId):
-            data = await self.__sendRequest(f"/inventory/v1/title/{game}/bundle/${bundleId}/en")
+            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/${bundleId}/en")
 
         async def battlePassLoot(self, platform, season:int):
-            data = await self.__sendRequest(f"/loot/title/mw/platform/{platform.value}/list/loot_season_{season}/en")
+            data = await self._common__sendRequest(f"/loot/title/mw/platform/{platform.value}/list/loot_season_{season}/en")
             return data
 
 
@@ -377,30 +377,30 @@ class API:
     class __USER(__common):
         async def friendFeed(self, platform, gamertag:str):
             lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self.__sendRequest(f"/userfeed/v1/friendFeed/platform/{platform.value}/gamer/{gamertag}/friendFeedEvents/en")
+            data = await self._common__sendRequest(f"/userfeed/v1/friendFeed/platform/{platform.value}/gamer/{gamertag}/friendFeedEvents/en")
             return data
 
         async def eventFeed(self):
-            data = await self.__sendRequest(f"/userfeed/v1/friendFeed/rendered/en/{self.baseSsoToken}")
+            data = await self._common__sendRequest(f"/userfeed/v1/friendFeed/rendered/en/{self.baseSsoToken}")
             return data
 
         async def loggedInIdentities(self):
-            data = await self.__sendRequest(f"/crm/cod/v2/identities/{self.baseSsoToken}")
+            data = await self._common__sendRequest(f"/crm/cod/v2/identities/{self.baseSsoToken}")
             return data
 
         async def codPoints(self, platform, gamertag:str):
             lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self.__sendRequest(f"/inventory/v1/title/mw/platform/{platform.value}/gamer/{gamertag}/currency")
+            data = await self._common__sendRequest(f"/inventory/v1/title/mw/platform/{platform.value}/gamer/{gamertag}/currency")
             return data
 
         async def connectedAccounts(self, platform, gamertag:str):
             lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self.__sendRequest(f"/crm/cod/v2/accounts/platform/{platform.value}/{lookUpType}/{gamertag}")
+            data = await self._common__sendRequest(f"/crm/cod/v2/accounts/platform/{platform.value}/{lookUpType}/{gamertag}")
             return data
 
         async def settings(self, platform, gamertag:str):
             lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self.__sendRequest(f"/preferences/v1/platform/{platform.value}/gamer/{gamertag}/list")
+            data = await self._common__sendRequest(f"/preferences/v1/platform/{platform.value}/gamer/{gamertag}/list")
             return data
 
 
@@ -408,7 +408,7 @@ class API:
     class __ALT(__common):
         async def search(self, platform, gamertag:str):
             lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self.sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search")
+            data = await self._common__sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search")
             return data
 
 
@@ -421,9 +421,14 @@ class InvalidPlatform(Exception):
     def __init__(self, platform: platforms):
         self.message: str
         if platform == platforms.Steam:
-            self.message = "Steam Doesn't exist for MW. Try `battle` instead."
+            self.message = "Steam cannot be used till further updates."
         else:
             self.message = f"Invalid platform, use platform class!"
 
     def __str__(self):
         return self.message
+
+
+class StatusError(Exception):
+    def __str__(self):
+        return "Status Error, Check if your sso token is valid or try again later."

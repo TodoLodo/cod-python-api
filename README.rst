@@ -76,21 +76,21 @@ Following importation and initiation of the class ``API``, its associated subcla
 
 Below are the available sub classes:
 
-+-----------------+----------+
-| sub class       | catogery |
-+=================+==========+
-|* `ColdWar`_     | game     |
-+-----------------+----------+
-|* `ModernWarfe`_ | game     |
-+-----------------+----------+
-|* `Vanguard`_    | game     |
-+-----------------+----------+
-|* `Warzone`_     | game     |
-+-----------------+----------+
-|* `Me`_          | other    |
-+-----------------+----------+
-|* `Misc`_        | other    |
-+-----------------+----------+
++-------------------+----------+
+| sub class         | catogery |
++===================+==========+
+|* `ColdWar`_       | game     |
++-------------------+----------+
+|* `ModernWarfare`_ | game     |
++-------------------+----------+
+|* `Vanguard`_      | game     |
++-------------------+----------+
+|* `Warzone`_       | game     |
++-------------------+----------+
+|* `Me`_            | other    |
++-------------------+----------+
+|* `Misc`_          | other    |
++-------------------+----------+
 
 
 
@@ -109,9 +109,9 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
     # print out the docstring
     print(api.ColdWar.__doc__)
 
-.. _`ModernWarfe`:
+.. _`ModernWarfare`:
 
-``ModernWarfe``
+``ModernWarfare``
 
 .. code-block:: python
 

@@ -215,7 +215,10 @@ class API:
     # WZ
     class __WZ(__common):
         """
-        Warzone class: A class to get players warzone stats
+        Warzone class: A class to get players warzone stats, warzone combat history and specific warzone match details
+            classCatogery: game
+            gameId/gameTitle: mw or wz
+            gameType: wz
 
         Methods
         -------
@@ -227,6 +230,15 @@ class API:
 
         combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
             returns player's combat history within the specified timeline of type dict
+
+        breakdown(platform:platforms, gamertag:str)
+            returns player's combat history breakdown of type dict
+
+        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
+                    returns player's combat history breakdown within the specified timeline of type dict
+
+        matchInfo(platform:platforms, matchId:int)
+                    returns details match details of type dict
         """
 
         async def fullData(self, platform:platforms, gamertag: str):
@@ -256,6 +268,39 @@ class API:
 
     # MW
     class __MW(__common):
+        """
+        ModernWarfare class: A class to get players modernwarfare stats, modernwarfare combat history, a player's modernwarfare season loot, modernwarfare map list and specific modernwarfare match details
+            classCatogery: game
+            gameId/gameTitle: mw
+            gameType: mp
+
+        Methods
+        -------
+        fullData(platform:platforms, gamertagLstr)
+            returns player's game data of type dict
+
+        combatHistory(platform:platforms, gamertag:str)
+            returns player's combat history of type dict
+
+        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
+            returns player's combat history within the specified timeline of type dict
+
+        breakdown(platform:platforms, gamertag:str)
+            returns player's combat history breakdown of type dict
+
+        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
+                    returns player's combat history breakdown within the specified timeline of type dict
+
+        seasonLoot(platform:platforms, gamertag:str)
+            returns player's season loot
+
+        mapList(platform:platforms)
+            returns available maps and available modes for each
+
+        matchInfo(platform:platforms, matchId:int)
+                    returns details match details of type dict
+        """
+
         async def fullData(self, platform, gamertag: str):
             data = await self._common__fullDataReq("mw", platform, gamertag, "mp")
             return data
@@ -291,6 +336,39 @@ class API:
 
     # CW
     class __CW(__common):
+        """
+         ColdWar class: A class to get players coldwar stats, coldwar combat history, a player's coldwar season loot, coldwar map list and specific coldwar match details
+             classCatogery: game
+             gameId/gameTitle: cw
+             gameType: mp
+
+         Methods
+         -------
+         fullData(platform:platforms, gamertagLstr)
+             returns player's game data of type dict
+
+         combatHistory(platform:platforms, gamertag:str)
+             returns player's combat history of type dict
+
+         combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
+             returns player's combat history within the specified timeline of type dict
+
+         breakdown(platform:platforms, gamertag:str)
+             returns player's combat history breakdown of type dict
+
+         breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
+                     returns player's combat history breakdown within the specified timeline of type dict
+
+         seasonLoot(platform:platforms, gamertag:str)
+             returns player's season loot
+
+         mapList(platform:platforms)
+             returns available maps and available modes for each
+
+         matchInfo(platform:platforms, matchId:int)
+                     returns details match details of type dict
+         """
+
         async def fullData(self, platform, gamertag: str):
             data = await self._common__fullDataReq("cw", platform, gamertag, "mp")
             return data
@@ -326,6 +404,39 @@ class API:
 
     # VG
     class __VG(__common):
+        """
+         Vanguard class: A class to get players vanguard stats, vanguard combat history, a player's vanguard season loot, vanguard map list and specific vanguard match details
+             classCatogery: game
+             gameId/gameTitle: vg
+             gameType: pm
+
+         Methods
+         -------
+         fullData(platform:platforms, gamertagLstr)
+             returns player's game data of type dict
+
+         combatHistory(platform:platforms, gamertag:str)
+             returns player's combat history of type dict
+
+         combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
+             returns player's combat history within the specified timeline of type dict
+
+         breakdown(platform:platforms, gamertag:str)
+             returns player's combat history breakdown of type dict
+
+         breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
+                     returns player's combat history breakdown within the specified timeline of type dict
+
+         seasonLoot(platform:platforms, gamertag:str)
+             returns player's season loot
+
+         mapList(platform:platforms)
+             returns available maps and available modes for each
+
+         matchInfo(platform:platforms, matchId:int)
+                     returns details match details of type dict
+         """
+
         async def fullData(self, platform, gamertag: str):
             data = await self._common__fullDataReq("vg", platform, gamertag, "mp")
             return data
@@ -361,15 +472,31 @@ class API:
 
     # SHOP
     class __SHOP(__common):
-        async def purchasableItems(self, game: str):
+        """
+         Shop class: A class to get bundle details and battle pass loot
+             classCatogery: other
+
+         Methods
+         -------
+         purchasableItems(game: games)
+             returns purchasable items for a specific gameId/gameTitle
+
+         bundleInformation(game: games, bundleId: int)
+             returns bundle details for the specific gameId/gameTitle and bundleId
+
+         battlePassLoot(game: games, platform: platforms, season: int)
+             returns battle pass loot for specific game and season on given platform
+         """
+
+        async def purchasableItems(self, game: games):
             data = await self._common__sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en")
             return data
 
-        async def bundleInformation(self, game: str, bundleId):
-            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/${bundleId}/en")
+        async def bundleInformation(self, game: games, bundleId: int):
+            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/{bundleId}/en")
 
-        async def battlePassLoot(self, platform, season:int):
-            data = await self._common__sendRequest(f"/loot/title/mw/platform/{platform.value}/list/loot_season_{season}/en")
+        async def battlePassLoot(self,game: games, platform: platforms, season: int):
+            data = await self._common__sendRequest(f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en")
             return data
 
 

@@ -1,3 +1,9 @@
+.. toctree::
+
+   intro
+   All about strings <strings>
+   datatypes
+
 ===================
 **cod-python-api**
 ===================

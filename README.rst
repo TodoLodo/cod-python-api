@@ -250,7 +250,7 @@ on platform **Battlenet**:
     # loggin in with sso token
     api.login('your_sso_token')
 
-    # retrieving combat history
+    # retrieving combat history breakdown
     hist_b = api.Warzone.breakdown(platforms.Battlenet, "Username#1234") # returns data of type dict
 
     # printing results to console
@@ -275,7 +275,7 @@ and **1657949309** (Saturday, 16 July 2022 05:28:29):
     # loggin in with sso token
     api.login('your_sso_token')
 
-    # retrieving combat history
+    # retrieving combat history breakdown
     hist_b = api.Warzone.breakdownWithDate(platforms.Activision, "Username#1234567", 1657919309, 1657949309) # returns data of type dict
 
     # printing results to console
@@ -335,6 +335,7 @@ platform **Battlenet**:
     # loggin in with sso token
     api.login('your_sso_token')
 
+    # retrieving season loot
     loot = api.ColdWar.seasonLoot(platforms.Battlenet, "Username#1234") # returns data of type dict)
 
     # printing results to console
@@ -361,7 +362,8 @@ Here's an example for retrieving **Vanguard** map list and available modes respe
     # loggin in with sso token
     api.login('your_sso_token')
 
-    maps = api.Vanguard.seasonLoot(platforms.PSN) # returns data of type dict)
+    # retrieving maps and respective modes available
+    maps = api.Vanguard.mapList(platforms.PSN) # returns data of type dict)
 
     # printing results to console
     print(maps)

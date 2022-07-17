@@ -9,10 +9,10 @@
 .. image:: https://github.com/TodoLodo2089/cod-python-api/actions/workflows/tests.yml/badge.svg?branch=main
     :target: https://github.com/TodoLodo2089/cod-python-api.git
 
-.. image:: https://badge.fury.io/py/cod-api.svg
+.. image:: https://img.shields.io/endpoint?url=https://cod-python-api.todolodo.xyz/stats?q=version
     :target: https://badge.fury.io/py/cod-api
 
-.. image:: https://badge.fury.io/gh/TodoLodo2089%2Fcod-python-api.svg
+.. image:: https://img.shields.io/endpoint?url=https://cod-python-api.todolodo.xyz/stats?q=downloads
     :target: https://badge.fury.io/gh/TodoLodo2089%2Fcod-python-api
 
 ------------------------------------------------------------------------------------------------------------------------

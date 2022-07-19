@@ -93,6 +93,8 @@ Below are the available sub classes:
 +-------------------+----------+
 |* `Me`_            | other    |
 +-------------------+----------+
+|* `Shop`_          | other    |
++-------------------+----------+
 |* `Misc`_          | other    |
 +-------------------+----------+
 
@@ -164,6 +166,20 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 
     # print out the docstring
     print(api.Me.__doc__)
+
+.. _`Shop`:
+
+``Shop``:
+
+.. code-block:: python
+
+    from cod_api import API
+
+    api = API()
+
+    # print out the docstring
+    print(api.Shop.__doc__)
+
 
 .. _`Misc`:
 
@@ -418,3 +434,157 @@ Available ``platforms`` are as follows:
     platforms.Uno        # Uno (activision unique id)
 
     platforms.XBOX       # Xbox
+
+User Info
+----------
+
+Using the ``info()`` method in sub class ``Me`` of ``API`` user information can be retrieved of the sso-token logged in
+with
+
+.. code-block:: python
+
+    from cod_api import API
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving user info
+    userInfo = api.Me.info() # returns data of type dict
+
+    # printing results to console
+    print(userInfo)
+
+User Friend Feed
+----------------
+
+Using the ``friendFeed()`` method in sub class ``Me`` of ``API`` user's friend feed can be retrieved of the sso-token
+logged in with
+
+.. code-block:: python
+
+    from cod_api import API
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving user friend feed
+    friendFeed = api.Me.friendFeed() # returns data of type dict
+
+    # printing results to console
+    print(friendFeed)
+
+User Event Feed
+----------------
+
+Using the ``eventFeed()`` method in sub class ``Me`` of ``API`` user's event feed can be retrieved of the sso-token
+logged in with
+
+.. code-block:: python
+
+    from cod_api import API
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving user event feed
+    eventFeed = api.Me.eventFeed() # returns data of type dict
+
+    # printing results to console
+    print(eventFeed)
+
+User Identities
+----------------
+
+Using the ``loggedInIdentities()`` method in sub class ``Me`` of ``API`` user's identities can be retrieved of the
+sso-token logged in with
+
+.. code-block:: python
+
+    from cod_api import API
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving user identities
+    identities = api.Me.loggedInIdentities() # returns data of type dict
+
+    # printing results to console
+    print(identities)
+
+User COD Points
+----------------
+
+Using the ``codPoints()`` method in sub class ``Me`` of ``API`` user's cod points can be retrieved of the sso-token
+logged in with
+
+.. code-block:: python
+
+    from cod_api import API
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving user cod points
+    cp = api.Me.codPoints() # returns data of type dict
+
+    # printing results to console
+    print(cp)
+
+User Accounts
+----------------
+
+Using the ``connectedAccounts()`` method in sub class ``Me`` of ``API`` user's connected accounts can be retrieved of
+the sso-token logged in with
+
+.. code-block:: python
+
+    from cod_api import API
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving user connected accounts
+    accounts = api.Me.codPoints() # returns data of type dict
+
+    # printing results to console
+    print(accounts)
+
+User settings
+----------------
+
+Using the ``settings()`` method in sub class ``Me`` of ``API`` user's settings can be retrieved of the sso-token logged
+in with
+
+.. code-block:: python
+
+    from cod_api import API
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving user settings
+    settings = api.Me.settings() # returns data of type dict
+
+    # printing results to console
+    print(settings)

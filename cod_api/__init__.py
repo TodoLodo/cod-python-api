@@ -174,7 +174,8 @@ class API:
                     if respond.status_code == 200:
                         data = respond.json()
                         if data['status'] == 'success':
-                            return data['data']
+                            data = self.__mapping(data['data'])
+                            return data
                         else:
                             sys.exit(StatusError())
                     else:
@@ -208,6 +209,29 @@ class API:
                 if platform in [platforms.Activision, platforms.Battlenet, platforms.Uno]:
                     gamertag = self.__cleanClientName(gamertag)
             return lookUpType, gamertag
+
+        # mapping
+        def __mapping(self, data):
+            r = requests.get('https://engineer152.github.io/wz-data/weapon-ids.json')
+            guns = r.json()['All Weapons']
+            r = requests.get('https://engineer152.github.io/wz-data/game-modes.json')
+            modes = r.json()['modes']
+
+            # guns
+            try:
+                for m in data['matches']:
+                    for l in m['player']['loadouts']:
+                        if l['primaryWeapon']['label'] is None:
+                            l['primaryWeapon']['label'] = guns[l['primaryWeapon']['name']]
+
+                        if l['secondaryWeapon']['label'] is None:
+                            l['secondaryWeapon']['label'] = guns[l['secondaryWeapon']['name']]
+            except KeyError:
+                pass
+            except Exception as e:
+                print(e)
+
+            return data
 
         # API Requests
         async def __fullDataReq(self, game, platform, gamertag, type):
@@ -490,37 +514,6 @@ class API:
             data = asyncio.run(self._common__matchInfoReq("vg", platform, "mp", matchId))
             return data
 
-
-    # SHOP
-    class __SHOP(__common):
-        """
-         Shop class: A class to get bundle details and battle pass loot
-             classCatogery: other
-
-         Methods
-         -------
-         purchasableItems(game: games)
-             returns purchasable items for a specific gameId/gameTitle
-
-         bundleInformation(game: games, bundleId: int)
-             returns bundle details for the specific gameId/gameTitle and bundleId
-
-         battlePassLoot(game: games, platform: platforms, season: int)
-             returns battle pass loot for specific game and season on given platform
-         """
-
-        def purchasableItems(self, game: games):
-            data = asyncio.run(self._common__sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en"))
-            return data
-
-        def bundleInformation(self, game: games, bundleId: int):
-            data = asyncio.run(self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/{bundleId}/en"))
-
-        def battlePassLoot(self,game: games, platform: platforms, season: int):
-            data = asyncio.run(self._common__sendRequest(f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en"))
-            return data
-
-
     # USER
     class __USER(__common):
         def info(self):
@@ -548,7 +541,7 @@ class API:
             d = self.info()
             return d['identities'][0]['platform'], quote(d['identities'][0]['gamertag'].encode("utf-8"))
 
-        def friendFeed(self, platform, gamertag:str):
+        def friendFeed(self):
             p, g = self.__priv()
             data = asyncio.run(
                 self._common__sendRequest(f"/userfeed/v1/friendFeed/platform/{p}/gamer/{g}/friendFeedEvents/en")
@@ -576,6 +569,37 @@ class API:
         def settings(self):
             p, g = self.__priv()
             data = asyncio.run(self._common__sendRequest(f"/preferences/v1/platform/{p}/gamer/{g}/list"))
+            return data
+
+    # SHOP
+    class __SHOP(__common):
+        """
+         Shop class: A class to get bundle details and battle pass loot
+             classCatogery: other
+
+         Methods
+         -------
+         purchasableItems(game: games)
+             returns purchasable items for a specific gameId/gameTitle
+
+         bundleInformation(game: games, bundleId: int)
+             returns bundle details for the specific gameId/gameTitle and bundleId
+
+         battlePassLoot(game: games, platform: platforms, season: int)
+             returns battle pass loot for specific game and season on given platform
+         """
+
+        def purchasableItems(self, game: games):
+            data = asyncio.run(
+                self._common__sendRequest(f"/inventory/v1/title/{game}/platform/uno/purchasable/public/en"))
+            return data
+
+        def bundleInformation(self, game: games, bundleId: int):
+            data = asyncio.run(self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/{bundleId}/en"))
+
+        def battlePassLoot(self, game: games, platform: platforms, season: int):
+            data = asyncio.run(self._common__sendRequest(
+                f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en"))
             return data
 
     # ALT

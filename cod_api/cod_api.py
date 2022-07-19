@@ -1,7 +1,9 @@
 # Imports
 import asyncio
 import enum
+import json
 import requests
+import sys
 from urllib.parse import quote
 import uuid
 
@@ -47,28 +49,13 @@ class API:
 
     # Login
     def login(self, ssoToken: str):
-        self.__common.baseHeaders["__X-XSRF-TOKEN"] = self.__common.fakeXSRF
-        self.__common.baseHeaders["__X-CSRF-TOKEN"] = self.__common.fakeXSRF
-        self.__common.baseHeaders["Atvi-Auth"] = ssoToken
-        self.__common.baseHeaders["ACT_SSO_COOKIE"] = ssoToken
-        self.__common.baseHeaders["atkn"] = ssoToken
-        self.__common.baseHeaders["cookie"] = f'{self.__common.baseCookie}' \
-                                              f'ACT_SSO_COOKIE={ssoToken};' \
-                                              f'XSRF-TOKEN={self.__common.fakeXSRF};' \
-                                              f'API_CSRF_TOKEN={self.__common.fakeXSRF};' \
-                                              f'ACT_SSO_EVENT="LOGIN_SUCCESS:1644346543228";' \
-                                              f'ACT_SSO_COOKIE_EXPIRY=1645556143194;' \
-                                              f'comid=cod;' \
-                                              f'ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;' \
-                                              f'tfa_enrollment_seen=true;' \
-                                              f'gtm.custom.bot.flag=human;'
-        self.__common.baseSsoToken = ssoToken
-        self.__common.basePostHeaders["__X-XSRF-TOKEN"] = self.__common.fakeXSRF
-        self.__common.basePostHeaders["__X-CSRF-TOKEN"] = self.__common.fakeXSRF
-        self.__common.basePostHeaders["Atvi-Auth"] = ssoToken
-        self.__common.basePostHeaders["ACT_SSO_COOKIE"] = ssoToken
-        self.__common.basePostHeaders["atkn"] = ssoToken
-        self.__common.basePostHeaders["cookie"] = f'{self.__common.baseCookie}' \
+        try:
+            self.__common.baseHeaders["__X-XSRF-TOKEN"] = self.__common.fakeXSRF
+            self.__common.baseHeaders["__X-CSRF-TOKEN"] = self.__common.fakeXSRF
+            self.__common.baseHeaders["Atvi-Auth"] = ssoToken
+            self.__common.baseHeaders["ACT_SSO_COOKIE"] = ssoToken
+            self.__common.baseHeaders["atkn"] = ssoToken
+            self.__common.baseHeaders["cookie"] = f'{self.__common.baseCookie}' \
                                                   f'ACT_SSO_COOKIE={ssoToken};' \
                                                   f'XSRF-TOKEN={self.__common.fakeXSRF};' \
                                                   f'API_CSRF_TOKEN={self.__common.fakeXSRF};' \
@@ -78,13 +65,37 @@ class API:
                                                   f'ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;' \
                                                   f'tfa_enrollment_seen=true;' \
                                                   f'gtm.custom.bot.flag=human;'
-        self.__common.loggedIn = True
+            self.__common.baseSsoToken = ssoToken
+            self.__common.basePostHeaders["__X-XSRF-TOKEN"] = self.__common.fakeXSRF
+            self.__common.basePostHeaders["__X-CSRF-TOKEN"] = self.__common.fakeXSRF
+            self.__common.basePostHeaders["Atvi-Auth"] = ssoToken
+            self.__common.basePostHeaders["ACT_SSO_COOKIE"] = ssoToken
+            self.__common.basePostHeaders["atkn"] = ssoToken
+            self.__common.basePostHeaders["cookie"] = f'{self.__common.baseCookie}' \
+                                                      f'ACT_SSO_COOKIE={ssoToken};' \
+                                                      f'XSRF-TOKEN={self.__common.fakeXSRF};' \
+                                                      f'API_CSRF_TOKEN={self.__common.fakeXSRF};' \
+                                                      f'ACT_SSO_EVENT="LOGIN_SUCCESS:1644346543228";' \
+                                                      f'ACT_SSO_COOKIE_EXPIRY=1645556143194;' \
+                                                      f'comid=cod;' \
+                                                      f'ssoDevId=63025d09c69f47dfa2b8d5520b5b73e4;' \
+                                                      f'tfa_enrollment_seen=true;' \
+                                                      f'gtm.custom.bot.flag=human;'
 
-        for sub in [self.Warzone, self.ModernWarfare, self.ColdWar, self.Vanguard, self.Shop, self.Me, self.Misc]:
-            sub.loggedIn = self.__common.loggedIn
-            sub.baseSsoToken = self.__common.baseSsoToken
-            sub.baseHeaders = self.__common.baseHeaders
-            sub.basePostHeaders = self.__common.basePostHeaders
+            r = requests.get(f"{self.__common.baseUrl}{self.__common.apiPath}/crm/cod/v2/identities/{ssoToken}", headers=self.__common.baseHeaders)
+
+            if r.json()['status'] == 'success':
+                self.__common.loggedIn = True
+                for sub in [self.Warzone, self.ModernWarfare, self.ColdWar, self.Vanguard, self.Shop, self.Me, self.Misc]:
+                    sub.loggedIn = self.__common.loggedIn
+                    sub.baseSsoToken = self.__common.baseSsoToken
+                    sub.baseHeaders = self.__common.baseHeaders
+                    sub.basePostHeaders = self.__common.basePostHeaders
+            else:
+                sys.exit(InvalidToken(ssoToken))
+        except Exception as e:
+            print(e)
+            return e
 
 
     class __common:
@@ -159,9 +170,15 @@ class API:
                 respond = await self.__Request("GET", f"{self.baseUrl}{self.apiPath}{url}")
                 if type(respond) != Exception:
                     if respond.status_code == 200:
-                        return respond.json()
+                        data = respond.json()
+                        if data['status'] == 'success':
+                            return data['data']
+                        else:
+                            sys.exit(StatusError())
                     else:
                         return respond.status_code
+            else:
+                raise NotLoggedIn
 
         async def __sendPostRequest(self, url: str, body: dict):
             if self.loggedIn:
@@ -172,6 +189,8 @@ class API:
                         return respond.json()
                     else:
                         return respond.status_code
+            else:
+                raise NotLoggedIn()
 
         # client name url formatter
         def __cleanClientName(self, ganertage):
@@ -208,7 +227,7 @@ class API:
         async def __mapListReq(self, game, platform):
             return await self.__sendRequest(self.mapListUrl % (game, platform.value))
 
-        async def __matchInforReq(self, game, platform, type, matchId):
+        async def __matchInfoReq(self, game, platform, type, matchId):
             return await self.__sendRequest(self.matchInfoUrl % (game, platform.value, type, matchId))
 
 
@@ -241,28 +260,28 @@ class API:
                     returns details match details of type dict
         """
 
-        async def fullData(self, platform:platforms, gamertag: str):
-            data = await self._common__fullDataReq("mw", platform, gamertag, "wz")
+        def fullData(self, platform:platforms, gamertag: str):
+            data = asyncio.run(self._common__fullDataReq("mw", platform, gamertag, "wz"))
             return data
 
-        async def combatHistory(self, platform: platforms, gamertag: str):
-            data = await self._common__combatHistoryReq("mw", platform, gamertag, "wz", 0, 0)
+        def combatHistory(self, platform: platforms, gamertag: str):
+            data = asyncio.run(self._common__combatHistoryReq("mw", platform, gamertag, "wz", 0, 0))
             return data
 
-        async def combatHistoryWithDate(self, platform, gamertag: str, start:int, end:int):
-            data = await self._common__combatHistoryReq("mw", platform, gamertag, "wz", start, end)
+        def combatHistoryWithDate(self, platform, gamertag: str, start:int, end:int):
+            data = asyncio.run(self._common__combatHistoryReq("mw", platform, gamertag, "wz", start, end))
             return data
 
-        async def breakdown(self, platform, gamertag: str):
-            data = await self._common__breakdownReq("mw", platform, gamertag, "wz", 0, 0)
+        def breakdown(self, platform, gamertag: str):
+            data = asyncio.run(self._common__breakdownReq("mw", platform, gamertag, "wz", 0, 0))
             return data
 
-        async def breakdownWithDate(self, platform, gamertag: str, start:int, end:int):
-            data = await self._common__breakdownReq("mw", platform, gamertag, "wz", start, end)
+        def breakdownWithDate(self, platform, gamertag: str, start:int, end:int):
+            data = asyncio.run(self._common__breakdownReq("mw", platform, gamertag, "wz", start, end))
             return data
 
-        async def matchInfo(self, platform, matchId:int):
-            data = await self._common__matchInforReq("mw", platform, "wz", matchId)
+        def matchInfo(self, platform, matchId:int):
+            data = asyncio.run(self._common__matchInfoReq("mw", platform, "wz", matchId))
             return data
 
 
@@ -301,36 +320,36 @@ class API:
                     returns details match details of type dict
         """
 
-        async def fullData(self, platform, gamertag: str):
-            data = await self._common__fullDataReq("mw", platform, gamertag, "mp")
+        def fullData(self, platform, gamertag: str):
+            data = asyncio.run(self._common__fullDataReq("mw", platform, gamertag, "mp"))
             return data
 
-        async def combatHistory(self, platform, gamertag: str):
-            data = await self._common__combatHistoryReq("mw", platform, gamertag, "mp", 0, 0)
+        def combatHistory(self, platform, gamertag: str):
+            data = asyncio.run(self._common__combatHistoryReq("mw", platform, gamertag, "mp", 0, 0))
             return data
 
-        async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self._common__combatHistoryReq("mw", platform, gamertag, "mp", start, end)
+        def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__combatHistoryReq("mw", platform, gamertag, "mp", start, end))
             return data
 
-        async def breakdown(self, platform, gamertag: str):
-            data = await self._common__breakdownReq("mw", platform, gamertag, "mp", 0, 0)
+        def breakdown(self, platform, gamertag: str):
+            data = asyncio.run(self._common__breakdownReq("mw", platform, gamertag, "mp", 0, 0))
             return data
 
-        async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self._common__breakdownReq("mw", platform, gamertag, "mp", start, end)
+        def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__breakdownReq("mw", platform, gamertag, "mp", start, end))
             return data
 
-        async def seasonLoot(self, platform, gamertag):
-            data = await self._common__seasonLootReq("mw", platform, gamertag)
+        def seasonLoot(self, platform, gamertag):
+            data = asyncio.run(self._common__seasonLootReq("mw", platform, gamertag))
             return data
 
-        async def mapList(self, platform):
-            data = await self._common__mapListReq("mw", platform)
+        def mapList(self, platform):
+            data = asyncio.run(self._common__mapListReq("mw", platform))
             return data
 
-        async def matchInfo(self, platform, matchId: int):
-            data = await self._common__matchInforReq("mw", platform, "mp", matchId)
+        def matchInfo(self, platform, matchId: int):
+            data = asyncio.run(self._common__matchInfoReq("mw", platform, "mp", matchId))
             return data
 
 
@@ -369,36 +388,36 @@ class API:
                      returns details match details of type dict
          """
 
-        async def fullData(self, platform, gamertag: str):
-            data = await self._common__fullDataReq("cw", platform, gamertag, "mp")
+        def fullData(self, platform, gamertag: str):
+            data = asyncio.run(self._common__fullDataReq("cw", platform, gamertag, "mp"))
             return data
 
-        async def combatHistory(self, platform, gamertag: str):
-            data = await self._common__combatHistoryReq("cw", platform, gamertag, "mp", 0, 0)
+        def combatHistory(self, platform, gamertag: str):
+            data = asyncio.run(self._common__combatHistoryReq("cw", platform, gamertag, "mp", 0, 0))
             return data
 
-        async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self._common__combatHistoryReq("cw", platform, gamertag, "mp", start, end)
+        def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__combatHistoryReq("cw", platform, gamertag, "mp", start, end))
             return data
 
-        async def breakdown(self, platform, gamertag: str):
-            data = await self._common__breakdownReq("cw", platform, gamertag, "mp", 0, 0)
+        def breakdown(self, platform, gamertag: str):
+            data = asyncio.run(self._common__breakdownReq("cw", platform, gamertag, "mp", 0, 0))
             return data
 
-        async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self._common__breakdownReq("cw", platform, gamertag, "mp", start, end)
+        def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__breakdownReq("cw", platform, gamertag, "mp", start, end))
             return data
 
-        async def seasonLoot(self, platform, gamertag):
-            data = await self._common__seasonLootReq("cw", platform, gamertag)
+        def seasonLoot(self, platform, gamertag):
+            data = asyncio.run(self._common__seasonLootReq("cw", platform, gamertag))
             return data
 
-        async def mapList(self, platform):
-            data = await self._common__mapListReq("cw", platform)
+        def mapList(self, platform):
+            data = asyncio.run(self._common__mapListReq("cw", platform))
             return data
 
-        async def matchInfo(self, platform, matchId: int):
-            data = await self._common__matchInforReq("cw", platform, "mp", matchId)
+        def matchInfo(self, platform, matchId: int):
+            data = asyncio.run(self._common__matchInfoReq("cw", platform, "mp", matchId))
             return data
 
 
@@ -437,36 +456,36 @@ class API:
                      returns details match details of type dict
          """
 
-        async def fullData(self, platform, gamertag: str):
-            data = await self._common__fullDataReq("vg", platform, gamertag, "mp")
+        def fullData(self, platform, gamertag: str):
+            data = asyncio.run(self._common__fullDataReq("vg", platform, gamertag, "mp"))
             return data
 
-        async def combatHistory(self, platform, gamertag: str):
-            data = await self._common__combatHistoryReq("vg", platform, gamertag, "mp", 0, 0)
+        def combatHistory(self, platform, gamertag: str):
+            data = asyncio.run(self._common__combatHistoryReq("vg", platform, gamertag, "mp", 0, 0))
             return data
 
-        async def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self._common__combatHistoryReq("vg", platform, gamertag, "mp", start, end)
+        def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__combatHistoryReq("vg", platform, gamertag, "mp", start, end))
             return data
 
-        async def breakdown(self, platform, gamertag: str):
-            data = await self._common__breakdownReq("vg", platform, gamertag, "mp", 0, 0)
+        def breakdown(self, platform, gamertag: str):
+            data = asyncio.run(self._common__breakdownReq("vg", platform, gamertag, "mp", 0, 0))
             return data
 
-        async def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = await self._common__breakdownReq("vg", platform, gamertag, "mp", start, end)
+        def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__breakdownReq("vg", platform, gamertag, "mp", start, end))
             return data
 
-        async def seasonLoot(self, platform, gamertag):
-            data = await self._common__seasonLootReq("vg", platform, gamertag)
+        def seasonLoot(self, platform, gamertag):
+            data = asyncio.run(self._common__seasonLootReq("vg", platform, gamertag))
             return data
 
-        async def mapList(self, platform):
-            data = await self._common__mapListReq("vg", platform)
+        def mapList(self, platform):
+            data = asyncio.run(self._common__mapListReq("vg", platform))
             return data
 
-        async def matchInfo(self, platform, matchId: int):
-            data = await self._common__matchInforReq("vg", platform, "mp", matchId)
+        def matchInfo(self, platform, matchId: int):
+            data = asyncio.run(self._common__matchInfoReq("vg", platform, "mp", matchId))
             return data
 
 
@@ -488,60 +507,95 @@ class API:
              returns battle pass loot for specific game and season on given platform
          """
 
-        async def purchasableItems(self, game: games):
-            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en")
+        def purchasableItems(self, game: games):
+            data = asyncio.run(self._common__sendRequest(f"/inventory/v1/title/{game}/platform/psn/purchasable/public/en"))
             return data
 
-        async def bundleInformation(self, game: games, bundleId: int):
-            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/{bundleId}/en")
+        def bundleInformation(self, game: games, bundleId: int):
+            data = asyncio.run(self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/{bundleId}/en"))
 
-        async def battlePassLoot(self,game: games, platform: platforms, season: int):
-            data = await self._common__sendRequest(f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en")
+        def battlePassLoot(self,game: games, platform: platforms, season: int):
+            data = asyncio.run(self._common__sendRequest(f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en"))
             return data
 
 
     # USER
     class __USER(__common):
-        async def friendFeed(self, platform, gamertag:str):
-            lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self._common__sendRequest(f"/userfeed/v1/friendFeed/platform/{platform.value}/gamer/{gamertag}/friendFeedEvents/en")
+        def info(self):
+            if self.loggedIn:
+                headers = self.baseHeaders
+                headers['Accept'] = 'application/json'
+                rawData = requests.get(f"https://profile.callofduty.com/cod/userInfo/{self.baseSsoToken}", headers=headers)
+                rawData = json.loads(rawData.text.replace('userInfo(', '').replace(');', ''))
+
+                data = {
+                    'userName': rawData['userInfo']['userName']
+                }
+                data['identities'] = []
+                for i in rawData['identities']:
+                    data['identities'].append({
+                        'platform': i['provider'],
+                        'gamertag': i['username'],
+                        'accountID': i['accountID']
+                    })
+                return data
+            else:
+                sys.exit(NotLoggedIn())
+
+        def __priv(self):
+            d = self.info()
+            return d['identities'][0]['platform'], quote(d['identities'][0]['gamertag'].encode("utf-8"))
+
+        def friendFeed(self, platform, gamertag:str):
+            p, g = self.__priv()
+            data = asyncio.run(self._common__sendRequest(f"/userfeed/v1/friendFeed/platform/{p}/gamer/{g}/friendFeedEvents/en"))
             return data
 
-        async def eventFeed(self):
-            data = await self._common__sendRequest(f"/userfeed/v1/friendFeed/rendered/en/{self.baseSsoToken}")
+        def eventFeed(self):
+            data = asyncio.run(self._common__sendRequest(f"/userfeed/v1/friendFeed/rendered/en/{self.baseSsoToken}"))
             return data
 
-        async def loggedInIdentities(self):
-            data = await self._common__sendRequest(f"/crm/cod/v2/identities/{self.baseSsoToken}")
+        def loggedInIdentities(self):
+            data = asyncio.run(self._common__sendRequest(f"/crm/cod/v2/identities/{self.baseSsoToken}"))
             return data
 
-        async def codPoints(self, platform, gamertag:str):
-            lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self._common__sendRequest(f"/inventory/v1/title/mw/platform/{platform.value}/gamer/{gamertag}/currency")
+        def codPoints(self):
+            p, g = self.__priv()
+            data = asyncio.run(self._common__sendRequest(f"/inventory/v1/title/mw/platform/{p}/gamer/{g}/currency"))
             return data
 
-        async def connectedAccounts(self, platform, gamertag:str):
-            lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self._common__sendRequest(f"/crm/cod/v2/accounts/platform/{platform.value}/{lookUpType}/{gamertag}")
+        def connectedAccounts(self):
+            p, g = self.__priv()
+            data = asyncio.run(self._common__sendRequest(f"/crm/cod/v2/accounts/platform/{p}/gamer/{g}"))
             return data
 
-        async def settings(self, platform, gamertag:str):
-            lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self._common__sendRequest(f"/preferences/v1/platform/{platform.value}/gamer/{gamertag}/list")
+        def settings(self):
+            p, g = self.__priv()
+            data = asyncio.run(self._common__sendRequest(f"/preferences/v1/platform/{p}/gamer/{g}/list"))
             return data
 
 
     # ALT
     class __ALT(__common):
-        async def search(self, platform, gamertag:str):
-            lookUpType, gamertag = self.__helper(platform, gamertag)
-            data = await self._common__sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search")
+        def search(self, platform, gamertag:str):
+            lookUpType, gamertag = self._common__helper(platform, gamertag)
+            data = asyncio.run(self._common__sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search"))
             return data
 
+
+# Exceptions
 
 class NotLoggedIn(Exception):
     def __str__(self):
         return "Not logged in!"
+
+
+class InvalidToken(Exception):
+    def __init__(self, token):
+        self.token = token
+
+    def __str__(self):
+        return f"Token is invalid, token: {self.token}"
 
 
 class InvalidPlatform(Exception):

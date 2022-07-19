@@ -550,7 +550,9 @@ class API:
 
         def friendFeed(self, platform, gamertag:str):
             p, g = self.__priv()
-            data = asyncio.run(self._common__sendRequest(f"/userfeed/v1/friendFeed/platform/{p}/gamer/{g}/friendFeedEvents/en"))
+            data = asyncio.run(
+                self._common__sendRequest(f"/userfeed/v1/friendFeed/platform/{p}/gamer/{g}/friendFeedEvents/en")
+            )
             return data
 
         def eventFeed(self):
@@ -576,10 +578,10 @@ class API:
             data = asyncio.run(self._common__sendRequest(f"/preferences/v1/platform/{p}/gamer/{g}/list"))
             return data
 
-
     # ALT
     class __ALT(__common):
-        def search(self, platform, gamertag:str):
+
+        def search(self, platform, gamertag: str):
             lookUpType, gamertag = self._common__helper(platform, gamertag)
             data = asyncio.run(self._common__sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search"))
             return data
@@ -606,7 +608,7 @@ class InvalidPlatform(Exception):
         if platform == platforms.Steam:
             self.message = "Steam cannot be used till further updates."
         else:
-            self.message = f"Invalid platform, use platform class!"
+            self.message = "Invalid platform, use platform class!"
 
     def __str__(self):
         return self.message

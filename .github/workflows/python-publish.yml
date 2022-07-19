@@ -29,8 +29,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -U twine
-        pip install -U wheel
+        python -m pip install -U twine
+        python -m pip install -U wheel
     - name: Build package
       run: python setup.py sdist bdist_wheel
     - name: Publish package

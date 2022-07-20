@@ -2,6 +2,7 @@ __version__ = "0.0.2dev0"
 
 # Imports
 import asyncio
+from datetime import datetime
 import enum
 import json
 import requests
@@ -84,19 +85,32 @@ class API:
                                                       f'tfa_enrollment_seen=true;' \
                                                       f'gtm.custom.bot.flag=human;'
 
-            r = requests.get(f"{self.__common.baseUrl}{self.__common.apiPath}/crm/cod/v2/identities/{ssoToken}", headers=self.__common.baseHeaders)
+            r = requests.get(f"{self.__common.baseUrl}{self.__common.apiPath}/crm/cod/v2/identities/{ssoToken}",
+                             headers=self.__common.baseHeaders)
 
             if r.json()['status'] == 'success':
                 self.__common.loggedIn = True
-                for sub in [self.Warzone, self.ModernWarfare, self.ColdWar, self.Vanguard, self.Shop, self.Me, self.Misc]:
+                for sub in [self.Warzone, self.ModernWarfare, self.ColdWar,
+                            self.Vanguard, self.Shop, self.Me, self.Misc]:
                     sub.loggedIn = self.__common.loggedIn
                     sub.baseSsoToken = self.__common.baseSsoToken
                     sub.baseHeaders = self.__common.baseHeaders
                     sub.basePostHeaders = self.__common.basePostHeaders
+
+                # deleting scope data
+                del ssoToken, sub, r
             else:
+                # delete scope data
+                del ssoToken, r
+
+                # system exit
                 sys.exit(InvalidToken(ssoToken))
         except Exception as e:
             print(e)
+
+            # delete scope data
+            del ssoToken
+
             return e
 
 
@@ -117,7 +131,10 @@ class API:
 
             # headers & cookies
             self.fakeXSRF = str(uuid.uuid4())
-            self.userAgent: str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
+            self.userAgent: str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " \
+                                  "AppleWebKit/537.36 (KHTML, like Gecko) " \
+                                  "Chrome/74.0.3729.169 " \
+                                  "Safari/537.36"
             self.baseCookie: str = "new_SiteId=cod;ACT_SSO_LOCALE=en_US;country=US;"
             self.baseSsoToken: str = ''
             self.baseUrl: str = "https://my.callofduty.com"
@@ -163,8 +180,15 @@ class API:
 
             try:
                 r = requests.request(method=method, url=url, headers=h, data=b)
+                # delete scope data
+                del method, url, h, b
+
+                # return data
                 return r
             except Exception as e:
+                # delete scope data
+                del method, url, h, b
+
                 return e
 
         async def __sendRequest(self, url: str):
@@ -175,13 +199,23 @@ class API:
                         data = respond.json()
                         if data['status'] == 'success':
                             data = self.__mapping(data['data'])
+                            # delete scope data
+                            del url, respond
+
+                            # return data
                             return data
                         else:
+                            # delete scope data
+                            del url, respond
+
                             sys.exit(StatusError())
                     else:
+                        # delete scope data
+                        del url
+
                         return respond.status_code
             else:
-                raise NotLoggedIn
+                sys.exit(NotLoggedIn())
 
         async def __sendPostRequest(self, url: str, body: dict):
             if self.loggedIn:
@@ -196,8 +230,8 @@ class API:
                 raise NotLoggedIn()
 
         # client name url formatter
-        def __cleanClientName(self, ganertage):
-            return quote(ganertage.encode("utf-8"))
+        def __cleanClientName(self, gamertag):
+            return quote(gamertag.encode("utf-8"))
 
         # helper
         def __helper(self, platform, gamertag):
@@ -213,24 +247,89 @@ class API:
         # mapping
         def __mapping(self, data):
             r = requests.get('https://engineer152.github.io/wz-data/weapon-ids.json')
-            guns = r.json()['All Weapons']
+            guns = r.json()
             r = requests.get('https://engineer152.github.io/wz-data/game-modes.json')
-            modes = r.json()['modes']
+            modes = r.json()
+            r = requests.get('https://engineer152.github.io/wz-data/perks.json')
+            perks = r.json()
 
             # guns
             try:
-                for m in data['matches']:
-                    for l in m['player']['loadouts']:
-                        if l['primaryWeapon']['label'] is None:
-                            l['primaryWeapon']['label'] = guns[l['primaryWeapon']['name']]
+                for match in data['matches']:
+                    # time stamps
+                    try:
+                        match['utcStartDateTime'] = datetime.fromtimestamp(match['utcStartSeconds']).strftime("%A, %B %d, %Y, %I:%M:%S")
+                        match['utcEndDateTime'] = datetime.fromtimestamp(match['utcEndSeconds']).strftime("%A, %B %d, %Y, %I:%M:%S")
+                    except KeyError:
+                        pass
 
-                        if l['secondaryWeapon']['label'] is None:
-                            l['secondaryWeapon']['label'] = guns[l['secondaryWeapon']['name']]
+                    # loadouts list
+                    for loadout in match['player']['loadouts']:
+                        # weapons
+                        if loadout['primaryWeapon']['label'] is None:
+                            try:
+                                loadout['primaryWeapon']['label'] = guns[loadout['primaryWeapon']['name']]
+                            except KeyError:
+                                pass
+                        if loadout['secondaryWeapon']['label'] is None:
+                            try:
+                                loadout['secondaryWeapon']['label'] = guns[loadout['secondaryWeapon']['name']]
+                            except KeyError:
+                                pass
+
+                        # perks list
+                        for perk in loadout['perks']:
+                            if perk['label'] is None:
+                                try:
+                                    perk['label'] = perks[perk['name']]
+                                except KeyError:
+                                    pass
+
+                        # extra perks list
+                        for perk in loadout['extraPerks']:
+                            if perk['label'] is None:
+                                try:
+                                    perk['label'] = perks[perk['name']]
+                                except KeyError:
+                                    pass
+
+                    # loadout list
+                    for loadout in match['player']['loadout']:
+                        if loadout['primaryWeapon']['label'] is None:
+                            try:
+                                loadout['primaryWeapon']['label'] = guns[loadout['primaryWeapon']['name']]
+                            except KeyError:
+                                pass
+                        if loadout['secondaryWeapon']['label'] is None:
+                            try:
+                                loadout['secondaryWeapon']['label'] = guns[loadout['secondaryWeapon']['name']]
+                            except KeyError:
+                                pass
+
+                            # perks list
+                            for perk in loadout['perks']:
+                                if perk['label'] is None:
+                                    try:
+                                        perk['label'] = perks[perk['name']]
+                                    except KeyError:
+                                        pass
+
+                            # extra perks list
+                            for perk in loadout['extraPerks']:
+                                if perk['label'] is None:
+                                    try:
+                                        perk['label'] = perks[perk['name']]
+                                    except KeyError:
+                                        pass
             except KeyError:
                 pass
             except Exception as e:
                 print(e)
 
+            # delete scope data
+            del guns, modes, perks, match, loadout, perk
+
+            # return mapped or unmapped data
             return data
 
         # API Requests

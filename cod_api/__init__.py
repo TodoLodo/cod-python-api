@@ -197,6 +197,7 @@ class API:
                 if type(respond) != Exception:
                     if respond.status_code == 200:
                         data = respond.json()
+                        print(data)
                         if data['status'] == 'success':
                             data = self.__mapping(data['data'])
                             # delete scope data
@@ -327,7 +328,10 @@ class API:
                 print(e)
 
             # delete scope data
-            del guns, modes, perks, match, loadout, perk
+            try:
+                del guns, modes, perks, match, loadout, perk
+            except UnboundLocalError:
+                pass
 
             # return mapped or unmapped data
             return data

@@ -6,8 +6,8 @@
     :description: Call Of Duty API Library for python with the implementation of both public and private API used by activision on callofduty.com
     :key: CallOfDuty API, CallOfDuty python API, CallOfDuty python
 
-.. image:: https://github.com/TodoLodo2089/cod-python-api/actions/workflows/codeql-analysis.yml/badge.svg?branch=main
-    :target: https://github.com/TodoLodo2089/cod-python-api.git
+.. image:: https://github.com/TodoLodo/cod-python-api/actions/workflows/codeql-analysis.yml/badge.svg?branch=main
+    :target: https://github.com/TodoLodo/cod-python-api.git
 
 .. image:: https://img.shields.io/endpoint?url=https://cod-python-api.todolodo.xyz/stats?q=version
     :target: https://badge.fury.io/py/cod-api

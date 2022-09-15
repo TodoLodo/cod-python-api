@@ -413,6 +413,59 @@ class API:
             data = asyncio.run(self._common__matchInfoReq("mw", platform, "wz", matchId))
             return data
 
+    # WZ2
+    class __WZ2(__common):
+        """
+        Warzone 2 class: A class to get players warzone 2 stats, warzone 2 combat history and specific warzone 2 match details
+            classCatogery: game
+            gameId/gameTitle: mw or wz
+            gameType: wz2
+
+        Methods
+        -------
+        fullData(platform:platforms, gamertagLstr)
+            returns player's game data of type dict
+
+        combatHistory(platform:platforms, gamertag:str)
+            returns player's combat history of type dict
+
+        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
+            returns player's combat history within the specified timeline of type dict
+
+        breakdown(platform:platforms, gamertag:str)
+            returns player's combat history breakdown of type dict
+
+        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
+                    returns player's combat history breakdown within the specified timeline of type dict
+
+        matchInfo(platform:platforms, matchId:int)
+                    returns details match details of type dict
+        """
+
+        def fullData(self, platform:platforms, gamertag: str):
+            data = asyncio.run(self._common__fullDataReq("mw2", platform, gamertag, "wz2"))
+            return data
+
+        def combatHistory(self, platform: platforms, gamertag: str):
+            data = asyncio.run(self._common__combatHistoryReq("mw2", platform, gamertag, "wz2", 0, 0))
+            return data
+
+        def combatHistoryWithDate(self, platform, gamertag: str, start:int, end:int):
+            data = asyncio.run(self._common__combatHistoryReq("mw2", platform, gamertag, "wz2", start, end))
+            return data
+
+        def breakdown(self, platform, gamertag: str):
+            data = asyncio.run(self._common__breakdownReq("mw2", platform, gamertag, "wz2", 0, 0))
+            return data
+
+        def breakdownWithDate(self, platform, gamertag: str, start:int, end:int):
+            data = asyncio.run(self._common__breakdownReq("mw2", platform, gamertag, "wz2", start, end))
+            return data
+
+        def matchInfo(self, platform, matchId:int):
+            data = asyncio.run(self._common__matchInfoReq("mw2", platform, "wz2", matchId))
+            return data
+
 
     # MW
     class __MW(__common):
@@ -616,6 +669,73 @@ class API:
         def matchInfo(self, platform, matchId: int):
             data = asyncio.run(self._common__matchInfoReq("vg", platform, "mp", matchId))
             return data
+
+    # MW2
+    class __MW2(__common):
+        """
+        ModernWarfare 2 class: A class to get players modernwarfare 2 stats, modernwarfare 2 combat history, a player's modernwarfare 2 season loot, modernwarfare 2 map list and specific modernwarfare 2 match details
+            classCatogery: game
+            gameId/gameTitle: mw
+            gameType: mp
+
+        Methods
+        -------
+        fullData(platform:platforms, gamertagLstr)
+            returns player's game data of type dict
+
+        combatHistory(platform:platforms, gamertag:str)
+            returns player's combat history of type dict
+
+        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
+            returns player's combat history within the specified timeline of type dict
+
+        breakdown(platform:platforms, gamertag:str)
+            returns player's combat history breakdown of type dict
+
+        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
+                    returns player's combat history breakdown within the specified timeline of type dict
+
+        seasonLoot(platform:platforms, gamertag:str)
+            returns player's season loot
+
+        mapList(platform:platforms)
+            returns available maps and available modes for each
+
+        matchInfo(platform:platforms, matchId:int)
+                    returns details match details of type dict
+        """
+
+        def fullData(self, platform, gamertag: str):
+            data = asyncio.run(self._common__fullDataReq("mw2", platform, gamertag, "mp"))
+            return data
+
+        def combatHistory(self, platform, gamertag: str):
+            data = asyncio.run(self._common__combatHistoryReq("mw2", platform, gamertag, "mp", 0, 0))
+            return data
+
+        def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__combatHistoryReq("mw2", platform, gamertag, "mp", start, end))
+            return data
+
+        def breakdown(self, platform, gamertag: str):
+            data = asyncio.run(self._common__breakdownReq("mw2", platform, gamertag, "mp", 0, 0))
+            return data
+
+        def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
+            data = asyncio.run(self._common__breakdownReq("mw2", platform, gamertag, "mp", start, end))
+            return data
+
+        def seasonLoot(self, platform, gamertag):
+            data = asyncio.run(self._common__seasonLootReq("mw2", platform, gamertag))
+            return data
+
+        def mapList(self, platform):
+            data = asyncio.run(self._common__mapListReq("mw2", platform))
+            return data
+
+        def matchInfo(self, platform, matchId: int):
+            data = asyncio.run(self._common__matchInfoReq("mw2", platform, "mp", matchId))
+            return data        
 
     # USER
     class __USER(__common):

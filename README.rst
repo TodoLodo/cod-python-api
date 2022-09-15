@@ -28,6 +28,14 @@ Devs
 .. _Todo Lodo: https://github.com/TodoLodo2089
 .. _Engineer15: https://github.com/Engineer152
 
+====
+Partnered Code
+====
+`Node-CallOfDuty`_ by: `Lierrmm`_
+
+.. _Node-CallOfDuty: https://github.com/Lierrmm/Node-CallOfDuty
+.. _Lierrmm: https://github.com/Lierrmm
+
 =============
 Documentation
 =============

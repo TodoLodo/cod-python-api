@@ -202,11 +202,34 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
     # print out the docstring
     print(api.Misc.__doc__)
 
-Combat History
+Full Profile History
 --------------
-
 Any sub class of ``API``  that is of game catogery, has methods to check a player's combat history.
 Note that before calling any sub class methods of ``API`` you must be `logged in`_.
+Main method is ``fullData()`` which is available for ``ColdWar``, ``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes.
+
+Here's an example for retrieving **Warzone** full profile history of a player whose gamer tag is **Username#1234** on platform
+**Battlenet**:
+
+.. code-block:: python
+
+    from cod_api import API, platforms
+
+    # initiating the API class
+    api = API()
+
+    # loggin in with sso token
+    api.login('your_sso_token')
+
+    # retrieving combat history
+    profile = api.Warzone.fullData(platforms.Battlenet, "Username#1234") # returns data of type dict
+
+    # printing results to console
+    print(profile)
+
+
+Combat History
+--------------
 Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` which are available for all ``ColdWar``,
 ``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes.
 

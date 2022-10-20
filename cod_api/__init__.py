@@ -26,8 +26,10 @@ class platforms(enum.Enum):
 class games(enum.Enum):
     ColdWar = 'cw'
     ModernWarfare = 'mw'
+    ModernWarfare2 = 'mw2'
     Vanguard = 'vg'
     Warzone = 'wz'
+    Warzone2 = 'wz2'
 
 
 class friendActions(enum.Enum):
@@ -46,6 +48,8 @@ class API:
         # sub classes
         self.Warzone = self.__WZ()
         self.ModernWarfare = self.__MW()
+        self.Warzone2 = self.__WZ2()
+        self.ModernWarfare2 = self.__MW2()
         self.ColdWar = self.__CW()
         self.Vanguard = self.__VG()
         self.Shop = self.__SHOP()

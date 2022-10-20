@@ -95,9 +95,13 @@ Below are the available sub classes:
 +-------------------+----------+
 |* `ModernWarfare`_ | game     |
 +-------------------+----------+
+|* `ModernWarfare2`_| game     |
++-------------------+----------+
 |* `Vanguard`_      | game     |
 +-------------------+----------+
 |* `Warzone`_       | game     |
++-------------------+----------+
+|* `Warzone2`_      | game     |
 +-------------------+----------+
 |* `Me`_            | other    |
 +-------------------+----------+
@@ -136,6 +140,19 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
     # print out the docstring
     print(api.ModernWarfare.__doc__)
 
+.. _`ModernWarfare2`:
+
+``ModernWarfare2``:
+
+.. code-block:: python
+
+    from cod_api import API
+
+    api = API()
+
+    # print out the docstring
+    print(api.ModernWarfare2.__doc__)
+
 .. _`Vanguard`:
 
 ``Vanguard``:
@@ -161,6 +178,19 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 
     # print out the docstring
     print(api.Warzone.__doc__)
+
+.. _`Warzone2`:
+
+``Warzone2``:
+
+.. code-block:: python
+
+    from cod_api import API
+
+    api = API()
+
+    # print out the docstring
+    print(api.Warzone2.__doc__)
 
 .. _`Me`:
 
@@ -231,7 +261,7 @@ Here's an example for retrieving **Warzone** full profile history of a player wh
 Combat History
 --------------
 Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` which are available for all ``ColdWar``,
-``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes.
+``ModernWarfare``, ``ModernWarfare2``, ``Vanguard``, ``Warzone`` and ``Warzone2`` classes.
 
 The ``combatHistory()`` takes 2 input parameteres which are ``platform`` and ``gamertag`` of type `cod_api.platforms`_
 and string respectively.

@@ -185,14 +185,10 @@ class API:
 
             try:
                 r = requests.request(method=method, url=url, headers=h, data=b)
-                # delete scope data
-                del method, url, h, b
 
                 # return data
                 return r
             except Exception as e:
-                # delete scope data
-                del method, url, h, b
 
                 return e
 

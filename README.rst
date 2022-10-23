@@ -28,9 +28,9 @@ Devs
 .. _Todo Lodo: https://github.com/TodoLodo2089
 .. _Engineer15: https://github.com/Engineer152
 
-====
+===============
 Partnered Code
-====
+===============
 `Node-CallOfDuty`_ by: `Lierrmm`_
 
 .. _Node-CallOfDuty: https://github.com/Lierrmm/Node-CallOfDuty
@@ -233,7 +233,8 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
     print(api.Misc.__doc__)
 
 Full Profile History
---------------
+--------------------
+
 Any sub class of ``API``  that is of game catogery, has methods to check a player's combat history.
 Note that before calling any sub class methods of ``API`` you must be `logged in`_.
 Main method is ``fullData()`` which is available for ``ColdWar``, ``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes.
@@ -260,6 +261,7 @@ Here's an example for retrieving **Warzone** full profile history of a player wh
 
 Combat History
 --------------
+
 Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` which are available for all ``ColdWar``,
 ``ModernWarfare``, ``ModernWarfare2``, ``Vanguard``, ``Warzone`` and ``Warzone2`` classes.
 

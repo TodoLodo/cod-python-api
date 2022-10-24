@@ -651,3 +651,11 @@ in with
 
     # printing results to console
     print(settings)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Donate
+======
+
+`Todo Lodo <https://www.buymeacoffee.com/todolodo2089>`_
+`Engineer15 <https://www.paypal.com/paypalme/engineer15>`_

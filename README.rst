@@ -23,9 +23,9 @@ callofduty.com
 ====
 Devs
 ====
-`Todo Lodo`_ and `Engineer15`_
+`TodoLodo`_ and `Engineer15`_
 
-.. _Todo Lodo: https://github.com/TodoLodo2089
+.. _TodoLodo: https://github.com/TodoLodo2089
 .. _Engineer15: https://github.com/Engineer152
 
 ===============

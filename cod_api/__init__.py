@@ -10,8 +10,8 @@ import sys
 from urllib.parse import quote
 import uuid
 
-# Enums
 
+# Enums
 
 class platforms(enum.Enum):
     All = 'all'

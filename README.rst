@@ -23,14 +23,13 @@ callofduty.com
 ====
 Devs
 ====
-`TodoLodo`_ and `Engineer15`_
 
-.. _TodoLodo: https://github.com/TodoLodo2089
-.. _Engineer15: https://github.com/Engineer152
+`Todo Lodo <https://github.com/TodoLodo>`_ and `Engineer152 <https://github.com/Engineer152>`_
 
 ===============
 Partnered Code
 ===============
+
 `Node-CallOfDuty`_ by: `Lierrmm`_
 
 .. _Node-CallOfDuty: https://github.com/Lierrmm/Node-CallOfDuty
@@ -39,6 +38,7 @@ Partnered Code
 =============
 Documentation
 =============
+
 This package can be used directly as a python file or as a python library.
 
 Installation

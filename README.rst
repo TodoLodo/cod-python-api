@@ -659,5 +659,5 @@ Donate
 
 `Donate Todo Lodo`_ and `Donate Engineer152`_
 
-.. _Donate Engineer152:https://www.paypal.com/paypalme/engineer15
-.. _Donate Todo Lodo:https://www.buymeacoffee.com/todolodo2089
+.. _Donate Engineer152: https://www.paypal.com/paypalme/engineer15
+.. _Donate Todo Lodo: https://www.buymeacoffee.com/todolodo2089

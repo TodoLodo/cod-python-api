@@ -1,3 +1,27 @@
+Metadata-Version: 2.1
+Name: cod-api
+Version: 1.0.2
+Summary: Call Of Duty API.
+Home-page: https://cod-python-api.todolodo.xyz
+Author: Todo Lodo
+Author-email: me@todolodo.xyz
+Maintainer: Engineer15
+Maintainer-email: engineergamer15@gmail.com
+License: GPL-3.0
+Project-URL: Source Code, https://github.com/TodoLodo2089/cod-python-api
+Project-URL: Issue Tracker, https://github.com/TodoLodo2089/cod-python-api/issues
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: asyncio
+Requires-Dist: datetime
+Requires-Dist: requests
+Requires-Dist: uuid
+Requires-Dist: urllib3
+Requires-Dist: enum34
+
 ===================
 **cod-python-api**
 ===================

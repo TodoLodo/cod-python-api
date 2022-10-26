@@ -23,7 +23,6 @@ callofduty.com
 ====
 Devs
 ====
-
 `Todo Lodo`_ and `Engineer15`_
 
 .. _Todo Lodo: https://github.com/TodoLodo
@@ -32,7 +31,6 @@ Devs
 ===============
 Partnered Code
 ===============
-
 `Node-CallOfDuty`_ by: `Lierrmm`_
 
 .. _Node-CallOfDuty: https://github.com/Lierrmm/Node-CallOfDuty
@@ -41,7 +39,6 @@ Partnered Code
 =============
 Documentation
 =============
-
 This package can be used directly as a python file or as a python library.
 
 Installation
@@ -660,4 +657,7 @@ in with
 Donate
 ======
 
-`Todo Lodo <https://www.buymeacoffee.com/todolodo2089>`_ and `Engineer15 <https://www.paypal.com/paypalme/engineer15>`_
+`Donate Todo Lodo`_ and `Donate Engineer152`_
+
+.. _Donate Engineer152:https://www.paypal.com/paypalme/engineer15
+.. _Donate Todo Lodo:https://www.buymeacoffee.com/todolodo2089

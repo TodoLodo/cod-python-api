@@ -96,7 +96,7 @@ class API:
 
             if r.json()['status'] == 'success':
                 self.__common.loggedIn = True
-                for sub in [self.Warzone, self.ModernWarfare, self.ColdWar,
+                for sub in [self.Warzone, self.Warzone2, self.ModernWarfare, self.ModernWarfare2, self.ColdWar,
                             self.Vanguard, self.Shop, self.Me, self.Misc]:
                     sub.loggedIn = self.__common.loggedIn
                     sub.baseSsoToken = self.__common.baseSsoToken
@@ -430,6 +430,7 @@ class API:
             return data
 
     # WZ2
+
     class __WZ2(__common):
         """
         Warzone 2 class: A class to get players warzone 2 stats, warzone 2 combat history and specific warzone 2 match details
@@ -714,6 +715,7 @@ class API:
             return data
 
     # MW2
+
     class __MW2(__common):
         """
         ModernWarfare 2 class: A class to get players modernwarfare 2 stats, modernwarfare 2 combat history, a player's modernwarfare 2 season loot, modernwarfare 2 map list and specific modernwarfare 2 match details

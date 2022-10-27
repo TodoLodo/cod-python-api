@@ -398,35 +398,47 @@ class API:
                     returns details match details of type dict
         """
 
+        async def fullDataAsync(self, platform: platforms, gamertag: str):
+            data = await self._common__fullDataReq("mw", platform, gamertag, "wz")
+            return data
+
         def fullData(self, platform: platforms, gamertag: str):
-            data = asyncio.run(self._common__fullDataReq(
-                "mw", platform, gamertag, "wz"))
+            return asyncio.run(self.fullDataAsync(platform, gamertag))
+
+        async def combatHistoryAsync(self, platform: platforms, gamertag: str):
+            data = await self._common__combatHistoryReq("mw", platform, gamertag, "wz", 0, 0)
             return data
 
         def combatHistory(self, platform: platforms, gamertag: str):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw", platform, gamertag, "wz", 0, 0))
+            return asyncio.run(self.combatHistoryAsync(platform, gamertag))
+
+        async def combatHistoryWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__combatHistoryReq("mw", platform, gamertag, "wz", start, end)
             return data
 
         def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw", platform, gamertag, "wz", start, end))
+            return asyncio.run(self.combatHistoryWithDateAsync(platform, gamertag, start, end))
+
+        async def breakdownAsync(self, platform, gamertag: str):
+            data = await self._common__breakdownReq("mw", platform, gamertag, "wz", 0, 0)
             return data
 
         def breakdown(self, platform, gamertag: str):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw", platform, gamertag, "wz", 0, 0))
+            return asyncio.run(self.breakdownAsync(platform, gamertag))
+
+        async def breakdownWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__breakdownReq("mw", platform, gamertag, "wz", start, end)
             return data
 
         def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw", platform, gamertag, "wz", start, end))
+            return asyncio.run(self.breakdownWithDateAsync(platform, gamertag, start, end))
+
+        async def matchInfoAsync(self, platform, matchId: int):
+            data = await self._common__matchInfoReq("mw", platform, "wz", matchId)
             return data
 
         def matchInfo(self, platform, matchId: int):
-            data = asyncio.run(self._common__matchInfoReq(
-                "mw", platform, "wz", matchId))
-            return data
+            return asyncio.run(self.matchInfoAsync(platform, matchId))
 
     # WZ2
 
@@ -458,35 +470,46 @@ class API:
                     returns details match details of type dict
         """
 
+        async def fullDataAsync(self, platform: platforms, gamertag: str):
+            data = await self._common__fullDataReq("mw2", platform, gamertag, "wz2")
+            return data
         def fullData(self, platform: platforms, gamertag: str):
-            data = asyncio.run(self._common__fullDataReq(
-                "mw2", platform, gamertag, "wz2"))
+            return asyncio.run(self.fullDataAsync(platform, gamertag))
+
+        async def combatHistoryAsync(self, platform: platforms, gamertag: str):
+            data = await self._common__combatHistoryReq("mw2", platform, gamertag, "wz2", 0, 0)
             return data
 
         def combatHistory(self, platform: platforms, gamertag: str):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw2", platform, gamertag, "wz2", 0, 0))
+            return asyncio.run(self.combatHistoryAsync(platform, gamertag))
+
+        async def combatHistoryWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__combatHistoryReq("mw2", platform, gamertag, "wz2", start, end)
             return data
 
         def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw2", platform, gamertag, "wz2", start, end))
+            return asyncio.run(self.combatHistoryWithDateAsync(platform, gamertag, start, end))
+
+        async def breakdownAsync(self, platform, gamertag: str):
+            data = await self._common__breakdownReq("mw2", platform, gamertag, "wz2", 0, 0)
             return data
 
         def breakdown(self, platform, gamertag: str):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw2", platform, gamertag, "wz2", 0, 0))
+            return asyncio.run(self.breakdownAsync(platform, gamertag))
+
+        async def breakdownWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__breakdownReq("mw2", platform, gamertag, "wz2", start, end)
             return data
 
         def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw2", platform, gamertag, "wz2", start, end))
+            return asyncio.run(self.breakdownWithDateAsync(platform, gamertag, start, end))
+
+        async def matchInfoAsync(self, platform, matchId: int):
+            data = await self._common__matchInfoReq("mw2", platform, "wz2", matchId)
             return data
 
         def matchInfo(self, platform, matchId: int):
-            data = asyncio.run(self._common__matchInfoReq(
-                "mw2", platform, "wz2", matchId))
-            return data
+            return asyncio.run(self.matchInfoAsync(platform, matchId))
 
     # MW
 
@@ -524,44 +547,61 @@ class API:
                     returns details match details of type dict
         """
 
+        async def fullDataAsync(self, platform, gamertag: str):
+            data = await self._common__fullDataReq("mw", platform, gamertag, "mp")
+            return data
+
         def fullData(self, platform, gamertag: str):
-            data = asyncio.run(self._common__fullDataReq(
-                "mw", platform, gamertag, "mp"))
+            return asyncio.run(self.fullDataAsync(platform, gamertag))
+
+        async def combatHistoryAsync(self, platform, gamertag: str):
+            data = await self._common__combatHistoryReq("mw", platform, gamertag, "mp", 0, 0)
             return data
 
         def combatHistory(self, platform, gamertag: str):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.combatHistoryAsync(platform, gamertag))
+
+        async def combatHistoryWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__combatHistoryReq("mw", platform, gamertag, "mp", start, end)
             return data
 
         def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.combatHistoryWithDateAsync(platform, gamertag, start, end))
+
+        async def breakdownAsync(self, platform, gamertag: str):
+            data = await self._common__breakdownReq("mw", platform, gamertag, "mp", 0, 0)
             return data
 
         def breakdown(self, platform, gamertag: str):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.breakdownAsync(platform, gamertag))
+
+        async def breakdownWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__breakdownReq("mw", platform, gamertag, "mp", start, end)
             return data
 
         def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.breakdownWithDateAsync(platform, gamertag, start, end))
+
+        async def seasonLootAsync(self, platform, gamertag):
+            data = await self._common__seasonLootReq("mw", platform, gamertag)
             return data
 
         def seasonLoot(self, platform, gamertag):
-            data = asyncio.run(self._common__seasonLootReq(
-                "mw", platform, gamertag))
+            return asyncio.run(self.seasonLootAsync(platform, gamertag))
+
+        async def mapListAsync(self, platform):
+            data = await self._common__mapListReq("mw", platform)
             return data
 
         def mapList(self, platform):
-            data = asyncio.run(self._common__mapListReq("mw", platform))
+            return asyncio.run(self.mapListAsync(platform))
+
+        async def matchInfoAsync(self, platform, matchId: int):
+            data = await self._common__matchInfoReq("mw", platform, "mp", matchId)
             return data
 
         def matchInfo(self, platform, matchId: int):
-            data = asyncio.run(self._common__matchInfoReq(
-                "mw", platform, "mp", matchId))
-            return data
+            return asyncio.run(self.matchInfoAsync(platform, matchId))
 
     # CW
 
@@ -599,44 +639,60 @@ class API:
                      returns details match details of type dict
          """
 
+        async def fullDataAsync(self, platform, gamertag: str):
+            data = await self._common__fullDataReq("cw", platform, gamertag, "mp")
+            return data
         def fullData(self, platform, gamertag: str):
-            data = asyncio.run(self._common__fullDataReq(
-                "cw", platform, gamertag, "mp"))
+            return asyncio.run(self.fullDataAsync(platform, gamertag))
+
+        async def combatHistoryAsync(self, platform, gamertag: str):
+            data = await self._common__combatHistoryReq("cw", platform, gamertag, "mp", 0, 0)
             return data
 
         def combatHistory(self, platform, gamertag: str):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "cw", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.combatHistoryAsync(platform, gamertag))
+
+        async def combatHistoryWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__combatHistoryReq("cw", platform, gamertag, "mp", start, end)
             return data
 
         def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "cw", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.combatHistoryWithDateAsync(platform, gamertag, start, end))
+
+        async def breakdownAsync(self, platform, gamertag: str):
+            data = await self._common__breakdownReq("cw", platform, gamertag, "mp", 0, 0)
             return data
 
         def breakdown(self, platform, gamertag: str):
-            data = asyncio.run(self._common__breakdownReq(
-                "cw", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.breakdownAsync(platform, gamertag))
+
+        async def breakdownWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__breakdownReq("cw", platform, gamertag, "mp", start, end)
             return data
 
         def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__breakdownReq(
-                "cw", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.breakdownWithDateAsync(platform, gamertag, start, end))
+
+        async def seasonLootAsync(self, platform, gamertag):
+            data = await self._common__seasonLootReq("cw", platform, gamertag)
             return data
 
         def seasonLoot(self, platform, gamertag):
-            data = asyncio.run(self._common__seasonLootReq(
-                "cw", platform, gamertag))
+            return asyncio.run(self.seasonLootAsync(platform, gamertag))
+
+        async def mapListAsync(self, platform):
+            data = await self._common__mapListReq("cw", platform)
             return data
 
         def mapList(self, platform):
-            data = asyncio.run(self._common__mapListReq("cw", platform))
+            return asyncio.run(self.mapListAsync(platform))
+
+        async def matchInfoAsync(self, platform, matchId: int):
+            data = await self._common__matchInfoReq("cw", platform, "mp", matchId)
             return data
 
         def matchInfo(self, platform, matchId: int):
-            data = asyncio.run(self._common__matchInfoReq(
-                "cw", platform, "mp", matchId))
-            return data
+            return asyncio.run(self.matchInfoAsync(platform, matchId))
 
     # VG
 
@@ -674,44 +730,60 @@ class API:
                      returns details match details of type dict
          """
 
+        async def fullDataAsync(self, platform, gamertag: str):
+            data = await self._common__fullDataReq("vg", platform, gamertag, "mp")
+            return data
         def fullData(self, platform, gamertag: str):
-            data = asyncio.run(self._common__fullDataReq(
-                "vg", platform, gamertag, "mp"))
+            return asyncio.run(self.fullDataAsync(platform, gamertag))
+
+        async def combatHistoryAsync(self, platform, gamertag: str):
+            data = await self._common__combatHistoryReq("vg", platform, gamertag, "mp", 0, 0)
             return data
 
         def combatHistory(self, platform, gamertag: str):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "vg", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.combatHistoryAsync(platform, gamertag))
+
+        async def combatHistoryWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__combatHistoryReq("vg", platform, gamertag, "mp", start, end)
             return data
 
         def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "vg", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.combatHistoryWithDateAsync(platform, gamertag, start, end))
+
+        async def breakdownAsync(self, platform, gamertag: str):
+            data = await self._common__breakdownReq("vg", platform, gamertag, "mp", 0, 0)
             return data
 
         def breakdown(self, platform, gamertag: str):
-            data = asyncio.run(self._common__breakdownReq(
-                "vg", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.breakdownAsync(platform, gamertag))
+
+        async def breakdownWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__breakdownReq("vg", platform, gamertag, "mp", start, end)
             return data
 
         def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__breakdownReq(
-                "vg", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.breakdownWithDateAsync(platform, gamertag, start, end))
+
+        async def seasonLootAsync(self, platform, gamertag):
+            data = await self._common__seasonLootReq("vg", platform, gamertag)
             return data
 
         def seasonLoot(self, platform, gamertag):
-            data = asyncio.run(self._common__seasonLootReq(
-                "vg", platform, gamertag))
+            return asyncio.run(self.seasonLootAsync(platform, gamertag))
+
+        async def mapListAsync(self, platform):
+            data = await self._common__mapListReq("vg", platform)
             return data
 
         def mapList(self, platform):
-            data = asyncio.run(self._common__mapListReq("vg", platform))
+            return asyncio.run(self.mapListAsync(platform))
+
+        async def matchInfoAsync(self, platform, matchId: int):
+            data = await self._common__matchInfoReq("vg", platform, "mp", matchId)
             return data
 
         def matchInfo(self, platform, matchId: int):
-            data = asyncio.run(self._common__matchInfoReq(
-                "vg", platform, "mp", matchId))
-            return data
+            return asyncio.run(self.matchInfoAsync(platform, matchId))
 
     # MW2
 
@@ -749,44 +821,60 @@ class API:
                     returns details match details of type dict
         """
 
+        async def fullDataAsync(self, platform, gamertag: str):
+            data = await self._common__fullDataReq("mw2", platform, gamertag, "mp")
+            return data
         def fullData(self, platform, gamertag: str):
-            data = asyncio.run(self._common__fullDataReq(
-                "mw2", platform, gamertag, "mp"))
+            return asyncio.run(self.fullDataAsync(platform, gamertag))
+
+        async def combatHistoryAsync(self, platform, gamertag: str):
+            data = await self._common__combatHistoryReq("mw2", platform, gamertag, "mp", 0, 0)
             return data
 
         def combatHistory(self, platform, gamertag: str):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw2", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.combatHistoryAsync(platform, gamertag))
+
+        async def combatHistoryWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__combatHistoryReq("mw2", platform, gamertag, "mp", start, end)
             return data
 
         def combatHistoryWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__combatHistoryReq(
-                "mw2", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.combatHistoryWithDateAsync(platform, gamertag, start, end))
+
+        async def breakdownAsync(self, platform, gamertag: str):
+            data = await self._common__breakdownReq("mw2", platform, gamertag, "mp", 0, 0)
             return data
 
         def breakdown(self, platform, gamertag: str):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw2", platform, gamertag, "mp", 0, 0))
+            return asyncio.run(self.breakdownAsync(platform, gamertag))
+
+        async def breakdownWithDateAsync(self, platform, gamertag: str, start: int, end: int):
+            data = await self._common__breakdownReq("mw2", platform, gamertag, "mp", start, end)
             return data
 
         def breakdownWithDate(self, platform, gamertag: str, start: int, end: int):
-            data = asyncio.run(self._common__breakdownReq(
-                "mw2", platform, gamertag, "mp", start, end))
+            return asyncio.run(self.breakdownWithDateAsync(platform, gamertag, start, end))
+
+        async def seasonLootAsync(self, platform, gamertag):
+            data = await self._common__seasonLootReq("mw2", platform, gamertag)
             return data
 
         def seasonLoot(self, platform, gamertag):
-            data = asyncio.run(self._common__seasonLootReq(
-                "mw2", platform, gamertag))
+            return asyncio.run(self.seasonLootAsync(platform, gamertag))
+
+        async def mapListAsync(self, platform):
+            data = await self._common__mapListReq("mw2", platform)
             return data
 
         def mapList(self, platform):
-            data = asyncio.run(self._common__mapListReq("mw2", platform))
+            return asyncio.run(self.mapListAsync(platform))
+
+        async def matchInfoAsync(self, platform, matchId: int):
+            data = await self._common__matchInfoReq("mw2", platform, "mp", matchId)
             return data
 
         def matchInfo(self, platform, matchId: int):
-            data = asyncio.run(self._common__matchInfoReq(
-                "mw2", platform, "mp", matchId))
-            return data
+            return asyncio.run(self.matchInfoAsync(platform, matchId))
 
     # USER
     class __USER(__common):
@@ -817,41 +905,52 @@ class API:
             d = self.info()
             return d['identities'][0]['platform'], quote(d['identities'][0]['gamertag'].encode("utf-8"))
 
-        def friendFeed(self):
+        async def friendFeedAsync(self):
             p, g = self.__priv()
-            data = asyncio.run(
-                self._common__sendRequest(
+            data = await self._common__sendRequest(
                     f"/userfeed/v1/friendFeed/platform/{p}/gamer/{g}/friendFeedEvents/en")
-            )
+            return data
+
+        def friendFeed(self):
+            return asyncio.run(self.friendFeedAsync())
+
+        async def eventFeedAsync(self):
+            data = await self._common__sendRequest(f"/userfeed/v1/friendFeed/rendered/en/{self.baseSsoToken}")
             return data
 
         def eventFeed(self):
-            data = asyncio.run(self._common__sendRequest(
-                f"/userfeed/v1/friendFeed/rendered/en/{self.baseSsoToken}"))
+            return asyncio.run(self.eventFeedAsync())
+
+        async def loggedInIdentitiesAsync(self):
+            data = await self._common__sendRequest(f"/crm/cod/v2/identities/{self.baseSsoToken}")
             return data
 
         def loggedInIdentities(self):
-            data = asyncio.run(self._common__sendRequest(
-                f"/crm/cod/v2/identities/{self.baseSsoToken}"))
+            return asyncio.run(self.loggedInIdentitiesAsync())
+
+        async def codPointsAsync(self):
+            p, g = self.__priv()
+            data = await self._common__sendRequest(f"/inventory/v1/title/mw/platform/{p}/gamer/{g}/currency")
             return data
 
         def codPoints(self):
+            return asyncio.run(self.codPointsAsync())
+
+        async def connectedAccountsAsync(self):
             p, g = self.__priv()
-            data = asyncio.run(self._common__sendRequest(
-                f"/inventory/v1/title/mw/platform/{p}/gamer/{g}/currency"))
+            data = await self._common__sendRequest(f"/crm/cod/v2/accounts/platform/{p}/gamer/{g}")
             return data
 
         def connectedAccounts(self):
+            return asyncio.run(self.connectedAccountsAsync())
+
+        async def settingsAsync(self):
             p, g = self.__priv()
-            data = asyncio.run(self._common__sendRequest(
-                f"/crm/cod/v2/accounts/platform/{p}/gamer/{g}"))
+            data = await self._common__sendRequest(f"/preferences/v1/platform/{p}/gamer/{g}/list")
             return data
 
         def settings(self):
-            p, g = self.__priv()
-            data = asyncio.run(self._common__sendRequest(
-                f"/preferences/v1/platform/{p}/gamer/{g}/list"))
-            return data
+            return asyncio.run(self.settingsAsync())
 
     # SHOP
     class __SHOP(__common):
@@ -871,28 +970,38 @@ class API:
              returns battle pass loot for specific game and season on given platform
          """
 
+        async def purchasableItemsAsync(self, game: games):
+            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/platform/uno/purchasable/public/en")
+            return data
+
         def purchasableItems(self, game: games):
-            data = asyncio.run(
-                self._common__sendRequest(f"/inventory/v1/title/{game}/platform/uno/purchasable/public/en"))
+            return asyncio.run(self.purchasableItemsAsync(game))
+
+        async def bundleInformationAsync(self, game: games, bundleId: int):
+            data = await self._common__sendRequest(f"/inventory/v1/title/{game}/bundle/{bundleId}/en")
             return data
 
         def bundleInformation(self, game: games, bundleId: int):
-            data = asyncio.run(self._common__sendRequest(
-                f"/inventory/v1/title/{game}/bundle/{bundleId}/en"))
+            return asyncio.run(self.bundleInformationAsync(game, bundleId))
+
+        async def battlePassLootAsync(self, game: games, platform: platforms, season: int):
+            data = await self._common__sendRequest(
+                f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en")
+            return data
 
         def battlePassLoot(self, game: games, platform: platforms, season: int):
-            data = asyncio.run(self._common__sendRequest(
-                f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en"))
-            return data
+            return asyncio.run(self.battlePassLootAsync(game, platform, season))
 
     # ALT
     class __ALT(__common):
 
-        def search(self, platform, gamertag: str):
+        async def searchAsync(self, platform, gamertag: str):
             lookUpType, gamertag, platform = self._common__helper(platform, gamertag)
-            data = asyncio.run(self._common__sendRequest(
-                f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search"))
+            data = await self._common__sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search")
             return data
+
+        def search(self, platform, gamertag: str):
+            return asyncio.run(self.searchAsync(platform, gamertag))
 
 
 # Exceptions

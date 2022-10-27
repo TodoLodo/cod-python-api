@@ -1,4 +1,4 @@
-__version__ = "1.0.1"
+__version__ = "1.0.3"
 
 # Imports
 import asyncio
@@ -890,7 +890,7 @@ class API:
     class __ALT(__common):
 
         def search(self, platform, gamertag: str):
-            lookUpType, gamertag = self._common__helper(platform, gamertag)
+            lookUpType, gamertag, platform = self._common__helper(platform, gamertag)
             data = asyncio.run(self._common__sendRequest(
                 f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search"))
             return data

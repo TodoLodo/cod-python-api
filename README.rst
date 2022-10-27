@@ -246,6 +246,7 @@ Here's an example for retrieving **Warzone** full profile history of a player wh
 .. code-block:: python
 
     from cod_api import API, platforms
+    import asyncio
 
     # initiating the API class
     api = API()
@@ -253,11 +254,23 @@ Here's an example for retrieving **Warzone** full profile history of a player wh
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving combat history
     profile = api.Warzone.fullData(platforms.Battlenet, "Username#1234") # returns data of type dict
 
     # printing results to console
     print(profile)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving combat history
+        profile = await api.Warzone.fullDataAsync(platforms.Battlenet, "Username#1234") # returns data of type dict
+
+        # printing results to console
+        print(profile)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 
 Combat History
@@ -282,11 +295,23 @@ Here's an example for retrieving **Warzone** combat history of a player whose ga
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving combat history
     hist = api.Warzone.combatHistory(platforms.Battlenet, "Username#1234") # returns data of type dict
 
     # printing results to console
     print(hist)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving combat history
+        hist = await api.Warzone.combatHistoryAsync(platforms.Battlenet, "Username#1234") # returns data of type dict
+
+        # printing results to console
+        print(hist)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 The ``combatHistoryWithDate()`` takes 4 input parameteres which are ``platform``, ``gamertag``, ``start`` and ``end`` of
 type `cod_api.platforms`_, string, int and int respectively.
@@ -307,11 +332,23 @@ platform **Activision** with in the timestamps **1657919309** (Friday, 15 July 2
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving combat history
     hist = api.Warzone.combatHistoryWithDate(platforms.Activision, "Username#1234567", 1657919309, 1657949309) # returns data of type dict
 
     # printing results to console
     print(hist)
+    
+    ## async
+    # in an async function
+    async def example():
+        # retrieving combat history
+        hist = await api.Warzone.combatHistoryWithDateAsync(platforms.Battlenet, "Username#1234", 1657919309, 1657949309) # returns data of type dict
+
+        # printing results to console
+        print(hist)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 Additionally the methods ``breakdown()`` and ``breakdownWithDate()`` can be used to retrieve combat history without
 details, where only the platform played on, game title, UTC timestamp, type ID, match ID and map ID is returned for
@@ -334,11 +371,23 @@ on platform **Battlenet**:
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving combat history breakdown
     hist_b = api.Warzone.breakdown(platforms.Battlenet, "Username#1234") # returns data of type dict
 
     # printing results to console
     print(hist_b)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving combat history breakdown
+        hist_b = await api.Warzone.breakdownAsync(platforms.Battlenet, "Username#1234") # returns data of type dict
+
+        # printing results to console
+        print(hist_b)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 The ``breakdownWithDate()`` takes 4 input parameteres which are ``platform``, ``gamertag``, ``start`` and ``end`` of
 type `cod_api.platforms`_, string, int and int respectively.
@@ -359,11 +408,23 @@ and **1657949309** (Saturday, 16 July 2022 05:28:29):
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving combat history breakdown
     hist_b = api.Warzone.breakdownWithDate(platforms.Activision, "Username#1234567", 1657919309, 1657949309) # returns data of type dict
 
     # printing results to console
     print(hist_b)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving combat history breakdown
+        hist_b = await api.Warzone.breakdownWithDateAsync(platforms.Battlenet, "Username#1234", 1657919309, 1657949309) # returns data of type dict
+
+        # printing results to console
+        print(hist_b)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 Match Details
 -------------
@@ -391,11 +452,23 @@ on platform **Battlenet**:
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving match details
     details = api.Warzone.matchInfo(platforms.Battlenet, 9484583876389482453) # returns data of type dict
 
     # printing results to console
     print(details)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving match details
+        details = await api.Warzone.matchInfoAsync(platforms.Battlenet, 9484583876389482453) # returns data of type dict
+
+        # printing results to console
+        print(details)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 Season Loot
 -----------
@@ -419,11 +492,23 @@ platform **Battlenet**:
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving season loot
     loot = api.ColdWar.seasonLoot(platforms.Battlenet, "Username#1234") # returns data of type dict)
 
     # printing results to console
     print(loot)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving season loot
+        loot = await api.ColdWar.seasonLootAsync(platforms.Battlenet, 9484583876389482453) # returns data of type dict
+
+        # printing results to console
+        print(loot)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 Map List
 --------
@@ -446,11 +531,24 @@ Here's an example for retrieving **Vanguard** map list and available modes respe
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving maps and respective modes available
-    maps = api.Vanguard.mapList(platforms.PSN) # returns data of type dict)
+    maps = api.Vanguard.mapList(platforms.PSN) # returns data of type dict
 
     # printing results to console
     print(maps)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving season loot
+        maps = await api.Vanguard.mapListAsync(platforms.PSN) # returns data of type dict
+
+        # printing results to console
+        print(maps)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
+
 
 .. _cod_api.platforms:
 
@@ -537,11 +635,23 @@ logged in with
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving user friend feed
     friendFeed = api.Me.friendFeed() # returns data of type dict
 
     # printing results to console
     print(friendFeed)
+    
+    ## async
+    # in an async function
+    async def example():
+        # retrieving user friend feed
+        friendFeed = await api.Me.friendFeedAsync() # returns data of type dict
+
+        # printing results to console
+        print(friendFeed)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 User Event Feed
 ----------------
@@ -559,11 +669,23 @@ logged in with
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving user event feed
     eventFeed = api.Me.eventFeed() # returns data of type dict
 
     # printing results to console
     print(eventFeed)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving user event feed
+        eventFeed = await api.Me.eventFeedAsync() # returns data of type dict
+
+        # printing results to console
+        print(eventFeed)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 User Identities
 ----------------
@@ -581,11 +703,23 @@ sso-token logged in with
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving user identities
     identities = api.Me.loggedInIdentities() # returns data of type dict
 
     # printing results to console
     print(identities)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving user identities
+        identities = await api.Me.loggedInIdentitiesAsync() # returns data of type dict
+
+        # printing results to console
+        print(identities)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 User COD Points
 ----------------
@@ -603,11 +737,23 @@ logged in with
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving user cod points
     cp = api.Me.codPoints() # returns data of type dict
 
     # printing results to console
     print(cp)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving user cod points
+        cp = await api.Me.codPointsAsync() # returns data of type dict
+
+        # printing results to console
+        print(cp)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 User Accounts
 ----------------
@@ -625,11 +771,23 @@ the sso-token logged in with
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving user connected accounts
-    accounts = api.Me.codPoints() # returns data of type dict
+    accounts = api.Me.connectedAccounts() # returns data of type dict
 
     # printing results to console
     print(accounts)
+
+    ## async
+    # in an async function
+    async def example():
+        # retrieving user connected accounts
+        accounts = await api.Me.connectedAccountsAsync() # returns data of type dict
+
+        # printing results to console
+        print(accounts)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
 User settings
 ----------------
@@ -647,18 +805,33 @@ in with
     # loggin in with sso token
     api.login('your_sso_token')
 
+    ## sync
     # retrieving user settings
     settings = api.Me.settings() # returns data of type dict
 
     # printing results to console
     print(settings)
 
+    ## async
+    # in an async function
+    async def example():
+        # retrieving user settings
+        settings = await api.Me.settingsAsync() # returns data of type dict
+
+        # printing results to console
+        print(settings)
+
+    # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
+
 -------------------------------------------------------------------------------------------------------------------------------
 
 Donate
 ======
 
-`Donate Todo Lodo`_ and `Donate Engineer152`_
+* `Donate Todo Lodo`_ 
+* `Donate Engineer152`_
+* `Donate Werseter`_
 
-.. _Donate Engineer152: https://www.paypal.com/paypalme/engineer15
 .. _Donate Todo Lodo: https://www.buymeacoffee.com/todolodo2089
+.. _Donate Engineer152: https://www.paypal.com/paypalme/engineer15
+.. _Donate Werseter: https://paypal.me/werseter

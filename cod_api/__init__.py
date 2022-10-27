@@ -1,4 +1,4 @@
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 # Imports
 import asyncio
@@ -198,7 +198,6 @@ class API:
                 if type(respond) != Exception:
                     if respond.status_code == 200:
                         data = respond.json()
-                        print(data)
                         if data['status'] == 'success':
                             data = self.__mapping(data['data'])
                             # delete scope data

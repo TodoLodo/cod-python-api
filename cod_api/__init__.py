@@ -1,4 +1,4 @@
-__version__ = "1.1.0dev0"
+__version__ = "1.1.1.dev0"
 
 # Imports
 import asyncio

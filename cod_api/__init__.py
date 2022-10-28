@@ -2,13 +2,14 @@ __version__ = "1.1.2.dev0"
 
 # Imports
 import asyncio
-from abc import abstractmethod
-from datetime import datetime
 import enum
 import json
-import requests
-from urllib.parse import quote
 import uuid
+from abc import abstractmethod
+from datetime import datetime
+from urllib.parse import quote
+
+import requests
 
 
 # Enums

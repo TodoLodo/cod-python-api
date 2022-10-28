@@ -340,11 +340,8 @@ class API:
                     returns details match details of type dict
         """
 
-        def __init__(self, doc):
-            super().__init__()
-            if doc is None:
-                doc
-                self.__doc__ = super().__doc__
+        def __init_subclass__(cls, **kwargs):
+            cls.__doc__ = cls.__doc__ + super(cls, cls).__doc__
 
         @property
         @abstractmethod

@@ -1,4 +1,4 @@
-__version__ = "1.1.1"
+__version__ = "1.1.2.dev0"
 
 # Imports
 import asyncio
@@ -7,7 +7,6 @@ from datetime import datetime
 import enum
 import json
 import requests
-import sys
 from urllib.parse import quote
 import uuid
 
@@ -43,15 +42,16 @@ class friendActions(enum.Enum):
 
 class API:
     def __init__(self):
-        # common class
+        # common classes
         self.__common = self.__common()
+        self.__GameDataCommons = self.__GameDataCommons()
 
         # sub classes
-        self.Warzone = self.__WZ()
-        self.ModernWarfare = self.__MW()
+        self.Warzone = self.__WZ(self.__GameDataCommons.__doc__)
+        self.ModernWarfare = self.__MW(self.__GameDataCommons.__doc__)
         self.Warzone2 = self.__WZ2()
-        self.ModernWarfare2 = self.__MW2()
-        self.ColdWar = self.__CW()
+        self.ModernWarfare2 = self.__MW2(self.__GameDataCommons.__doc__)
+        self.ColdWar = self.__CW(self.__GameDataCommons.__doc__)
         self.Vanguard = self.__VG()
         self.Shop = self.__SHOP()
         self.Me = self.__USER()
@@ -428,6 +428,12 @@ class API:
                     returns details match details of type dict
         """
 
+        def __init__(self, doc):
+            super().__init__()
+            if doc is None:
+                doc = ''
+            __doc__ += doc
+
         @property
         @abstractmethod
         def _game(self) -> str:
@@ -503,7 +509,6 @@ class API:
             gameType: wz
 
         """
-        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -529,7 +534,6 @@ class API:
             gameType: wz2
 
         """
-        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -555,7 +559,6 @@ class API:
             gameType: mp
 
         """
-        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -575,8 +578,6 @@ class API:
              gameType: mp
 
          """
-        __doc__ = __GameDataCommons.__doc__
-
         @property
         def _game(self) -> str:
             return "cw"
@@ -595,7 +596,6 @@ class API:
              gameType: pm
 
          """
-        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -615,7 +615,6 @@ class API:
             gameType: mp
 
         """
-        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:

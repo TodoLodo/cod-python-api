@@ -254,8 +254,6 @@ class API:
                                         pass
             except KeyError:
                 pass
-            except Exception as e:
-                print(e)
 
             # return mapped or unmapped data
             return data
@@ -558,7 +556,7 @@ class API:
                     })
                 return data
             else:
-                raise NotLoggedIn()
+                raise NotLoggedIn
 
         def __priv(self):
             d = self.info()

@@ -257,12 +257,6 @@ class API:
             except Exception as e:
                 print(e)
 
-            # delete scope data
-            try:
-                del guns, modes, perks, match, loadout, perk
-            except UnboundLocalError:
-                pass
-
             # return mapped or unmapped data
             return data
 

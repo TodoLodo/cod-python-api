@@ -1,6 +1,6 @@
 from setuptools import setup
 
-requirements = ["asyncio", "datetime", "requests", "uuid", "urllib3", "enum34"]
+requirements = ["asyncio", "aiohttp", "datetime", "requests", "uuid", "urllib3", "enum34"]
 
 setup(
     name="cod_api",

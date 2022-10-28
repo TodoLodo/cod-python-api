@@ -432,7 +432,7 @@ class API:
             super().__init__()
             if doc is None:
                 doc = ''
-            __doc__ += doc
+            self.__doc__ += doc
 
         @property
         @abstractmethod

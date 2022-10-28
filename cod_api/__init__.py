@@ -110,8 +110,8 @@ class API:
                 # delete scope data
                 del ssoToken, r
 
-                # system exit
-                sys.exit(InvalidToken(ssoToken))
+                # InvalidToken
+                raise InvalidToken(ssoToken)
         except Exception as e:
             print(e)
 
@@ -210,14 +210,14 @@ class API:
                             # delete scope data
                             del url, respond
 
-                            sys.exit(StatusError())
+                            raise StatusError()
                     else:
                         # delete scope data
                         del url
 
                         return respond.status_code
             else:
-                sys.exit(NotLoggedIn())
+                raise NotLoggedIn()
 
         async def __sendPostRequest(self, url: str, body: dict):
             if self.loggedIn:
@@ -372,6 +372,62 @@ class API:
             return await self.__sendRequest(self.matchInfoUrl % (game, platform.value, type, matchId))
 
     class __GameDataCommons(__common):
+        """
+        Methods
+        =======
+        Sync
+        ----
+        fullData(platform:platforms, gamertagLstr)
+            returns player's game data of type dict
+
+        combatHistory(platform:platforms, gamertag:str)
+            returns player's combat history of type dict
+
+        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
+            returns player's combat history within the specified timeline of type dict
+
+        breakdown(platform:platforms, gamertag:str)
+            returns player's combat history breakdown of type dict
+
+        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
+                    returns player's combat history breakdown within the specified timeline of type dict
+
+        seasonLoot(platform:platforms, gamertag:str)
+            returns player's season loot
+
+        mapList(platform:platforms)
+            returns available maps and available modes for each
+
+        matchInfo(platform:platforms, matchId:int)
+                    returns details match details of type dict
+        
+        Async
+        ----
+        fullDataAsync(platform:platforms, gamertagLstr)
+            returns player's game data of type dict
+
+        combatHistoryAsync(platform:platforms, gamertag:str)
+            returns player's combat history of type dict
+
+        combatHistoryWithDateAsync(platform:platforms, gamertag:str, start:int, end:int)
+            returns player's combat history within the specified timeline of type dict
+
+        breakdownAsync(platform:platforms, gamertag:str)
+            returns player's combat history breakdown of type dict
+
+        breakdownWithDateAsync(platform:platforms, gamertag:str, start:int, end:int)
+                    returns player's combat history breakdown within the specified timeline of type dict
+
+        seasonLootAsync(platform:platforms, gamertag:str)
+            returns player's season loot
+
+        mapListAsync(platform:platforms)
+            returns available maps and available modes for each
+
+        matchInfoAsync(platform:platforms, matchId:int)
+                    returns details match details of type dict
+        """
+
         @property
         @abstractmethod
         def _game(self) -> str:
@@ -446,26 +502,8 @@ class API:
             gameId/gameTitle: mw or wz
             gameType: wz
 
-        Methods
-        -------
-        fullData(platform:platforms, gamertagLstr)
-            returns player's game data of type dict
-
-        combatHistory(platform:platforms, gamertag:str)
-            returns player's combat history of type dict
-
-        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
-            returns player's combat history within the specified timeline of type dict
-
-        breakdown(platform:platforms, gamertag:str)
-            returns player's combat history breakdown of type dict
-
-        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
-                    returns player's combat history breakdown within the specified timeline of type dict
-
-        matchInfo(platform:platforms, matchId:int)
-                    returns details match details of type dict
         """
+        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -490,26 +528,8 @@ class API:
             gameId/gameTitle: mw or wz
             gameType: wz2
 
-        Methods
-        -------
-        fullData(platform:platforms, gamertagLstr)
-            returns player's game data of type dict
-
-        combatHistory(platform:platforms, gamertag:str)
-            returns player's combat history of type dict
-
-        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
-            returns player's combat history within the specified timeline of type dict
-
-        breakdown(platform:platforms, gamertag:str)
-            returns player's combat history breakdown of type dict
-
-        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
-                    returns player's combat history breakdown within the specified timeline of type dict
-
-        matchInfo(platform:platforms, matchId:int)
-                    returns details match details of type dict
         """
+        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -534,32 +554,8 @@ class API:
             gameId/gameTitle: mw
             gameType: mp
 
-        Methods
-        -------
-        fullData(platform:platforms, gamertagLstr)
-            returns player's game data of type dict
-
-        combatHistory(platform:platforms, gamertag:str)
-            returns player's combat history of type dict
-
-        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
-            returns player's combat history within the specified timeline of type dict
-
-        breakdown(platform:platforms, gamertag:str)
-            returns player's combat history breakdown of type dict
-
-        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
-                    returns player's combat history breakdown within the specified timeline of type dict
-
-        seasonLoot(platform:platforms, gamertag:str)
-            returns player's season loot
-
-        mapList(platform:platforms)
-            returns available maps and available modes for each
-
-        matchInfo(platform:platforms, matchId:int)
-                    returns details match details of type dict
         """
+        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -578,32 +574,8 @@ class API:
              gameId/gameTitle: cw
              gameType: mp
 
-         Methods
-         -------
-         fullData(platform:platforms, gamertagLstr)
-             returns player's game data of type dict
-
-         combatHistory(platform:platforms, gamertag:str)
-             returns player's combat history of type dict
-
-         combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
-             returns player's combat history within the specified timeline of type dict
-
-         breakdown(platform:platforms, gamertag:str)
-             returns player's combat history breakdown of type dict
-
-         breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
-                     returns player's combat history breakdown within the specified timeline of type dict
-
-         seasonLoot(platform:platforms, gamertag:str)
-             returns player's season loot
-
-         mapList(platform:platforms)
-             returns available maps and available modes for each
-
-         matchInfo(platform:platforms, matchId:int)
-                     returns details match details of type dict
          """
+        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -622,32 +594,8 @@ class API:
              gameId/gameTitle: vg
              gameType: pm
 
-         Methods
-         -------
-         fullData(platform:platforms, gamertagLstr)
-             returns player's game data of type dict
-
-         combatHistory(platform:platforms, gamertag:str)
-             returns player's combat history of type dict
-
-         combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
-             returns player's combat history within the specified timeline of type dict
-
-         breakdown(platform:platforms, gamertag:str)
-             returns player's combat history breakdown of type dict
-
-         breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
-                     returns player's combat history breakdown within the specified timeline of type dict
-
-         seasonLoot(platform:platforms, gamertag:str)
-             returns player's season loot
-
-         mapList(platform:platforms)
-             returns available maps and available modes for each
-
-         matchInfo(platform:platforms, matchId:int)
-                     returns details match details of type dict
          """
+        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -666,32 +614,8 @@ class API:
             gameId/gameTitle: mw
             gameType: mp
 
-        Methods
-        -------
-        fullData(platform:platforms, gamertagLstr)
-            returns player's game data of type dict
-
-        combatHistory(platform:platforms, gamertag:str)
-            returns player's combat history of type dict
-
-        combatHistoryWithDate(platform:platforms, gamertag:str, start:int, end:int)
-            returns player's combat history within the specified timeline of type dict
-
-        breakdown(platform:platforms, gamertag:str)
-            returns player's combat history breakdown of type dict
-
-        breakdownWithDate(platform:platforms, gamertag:str, start:int, end:int)
-                    returns player's combat history breakdown within the specified timeline of type dict
-
-        seasonLoot(platform:platforms, gamertag:str)
-            returns player's season loot
-
-        mapList(platform:platforms)
-            returns available maps and available modes for each
-
-        matchInfo(platform:platforms, matchId:int)
-                    returns details match details of type dict
         """
+        __doc__ = __GameDataCommons.__doc__
 
         @property
         def _game(self) -> str:
@@ -724,7 +648,7 @@ class API:
                     })
                 return data
             else:
-                sys.exit(NotLoggedIn())
+                raise NotLoggedIn()
 
         def __priv(self):
             d = self.info()
@@ -784,7 +708,9 @@ class API:
              classCatogery: other
 
          Methods
-         -------
+         =======
+         Sync
+         ----
          purchasableItems(game: games)
              returns purchasable items for a specific gameId/gameTitle
 
@@ -792,6 +718,17 @@ class API:
              returns bundle details for the specific gameId/gameTitle and bundleId
 
          battlePassLoot(game: games, platform: platforms, season: int)
+             returns battle pass loot for specific game and season on given platform
+
+        Async
+         ----
+         purchasableItemsAsync(game: games)
+             returns purchasable items for a specific gameId/gameTitle
+
+         bundleInformationAsync(game: games, bundleId: int)
+             returns bundle details for the specific gameId/gameTitle and bundleId
+
+         battlePassLootAsync(game: games, platform: platforms, season: int)
              returns battle pass loot for specific game and season on given platform
          """
 
@@ -851,6 +788,9 @@ class InvalidPlatform(Exception):
             self.message = "Steam cannot be used till further updates."
         else:
             self.message = "Invalid platform, use platform class!"
+
+        
+        super().__init__(self.message)
 
     def __str__(self):
         return self.message

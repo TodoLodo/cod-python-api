@@ -289,7 +289,7 @@ class API:
         =======
         Sync
         ----
-        fullData(platform:platforms, gamertagLstr)
+        fullData(platform:platforms, gamertag:str)
             returns player's game data of type dict
 
         combatHistory(platform:platforms, gamertag:str)
@@ -315,7 +315,7 @@ class API:
 
         Async
         ----
-        fullDataAsync(platform:platforms, gamertagLstr)
+        fullDataAsync(platform:platforms, gamertag:str)
             returns player's game data of type dict
 
         combatHistoryAsync(platform:platforms, gamertag:str)

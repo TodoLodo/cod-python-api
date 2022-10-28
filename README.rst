@@ -23,10 +23,17 @@ callofduty.com
 ====
 Devs
 ====
-`Todo Lodo`_, `Engineer15`_ and `Werseter`_
+* `Todo Lodo`_ 
+* `Engineer15`_
 
 .. _Todo Lodo: https://todolodo.xyz
 .. _Engineer15: https://github.com/Engineer152
+
+============
+Contributors
+============
+* `Werseter`_
+
 .. _Werseter: https://github.com/Werseter
 
 ===============

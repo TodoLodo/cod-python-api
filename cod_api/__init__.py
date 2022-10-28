@@ -48,11 +48,11 @@ class API:
         self.__GameDataCommons = self.__GameDataCommons()
 
         # sub classes
-        self.Warzone = self.__WZ(self.__GameDataCommons.__doc__)
-        self.ModernWarfare = self.__MW(self.__GameDataCommons.__doc__)
+        self.Warzone = self.__WZ()
+        self.ModernWarfare = self.__MW()
         self.Warzone2 = self.__WZ2()
-        self.ModernWarfare2 = self.__MW2(self.__GameDataCommons.__doc__)
-        self.ColdWar = self.__CW(self.__GameDataCommons.__doc__)
+        self.ModernWarfare2 = self.__MW2()
+        self.ColdWar = self.__CW()
         self.Vanguard = self.__VG()
         self.Shop = self.__SHOP()
         self.Me = self.__USER()
@@ -401,7 +401,7 @@ class API:
 
         matchInfo(platform:platforms, matchId:int)
                     returns details match details of type dict
-        
+
         Async
         ----
         fullDataAsync(platform:platforms, gamertagLstr)
@@ -429,11 +429,10 @@ class API:
                     returns details match details of type dict
         """
 
-        def __init__(self, doc):
+        def __init__(self):
             super().__init__()
-            if doc is None:
-                doc = ''
-            self.__doc__ += doc
+            if self.__doc__ is None:
+                self.__doc__ = super().__doc__
 
         @property
         @abstractmethod
@@ -789,7 +788,7 @@ class InvalidPlatform(Exception):
         else:
             self.message = "Invalid platform, use platform class!"
 
-        
+
         super().__init__(self.message)
 
     def __str__(self):

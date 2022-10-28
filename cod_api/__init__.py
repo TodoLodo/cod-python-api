@@ -340,11 +340,8 @@ class API:
                     returns details match details of type dict
         """
 
-        def __init__(self, doc):
-            super().__init__()
-            if doc is None:
-                doc
-                self.__doc__ = super().__doc__
+        def __init_subclass__(cls, **kwargs):
+            cls.__doc__ = cls.__doc__ + super(cls, cls).__doc__
 
         @property
         @abstractmethod
@@ -416,7 +413,7 @@ class API:
     class __WZ(__GameDataCommons):
         """
         Warzone class: A class to get players warzone stats, warzone combat history and specific warzone match details
-            classCatogery: game
+            classCategory: game
             gameId/gameTitle: mw or wz
             gameType: wz
 
@@ -441,7 +438,7 @@ class API:
     class __WZ2(__GameDataCommons):
         """
         Warzone 2 class: A class to get players warzone 2 stats, warzone 2 combat history and specific warzone 2 match details
-            classCatogery: game
+            classCategory: game
             gameId/gameTitle: mw or wz
             gameType: wz2
 
@@ -466,7 +463,7 @@ class API:
     class __MW(__GameDataCommons):
         """
         ModernWarfare class: A class to get players modernwarfare stats, modernwarfare combat history, a player's modernwarfare season loot, modernwarfare map list and specific modernwarfare match details
-            classCatogery: game
+            classCategory: game
             gameId/gameTitle: mw
             gameType: mp
 
@@ -485,7 +482,7 @@ class API:
     class __CW(__GameDataCommons):
         """
          ColdWar class: A class to get players coldwar stats, coldwar combat history, a player's coldwar season loot, coldwar map list and specific coldwar match details
-             classCatogery: game
+             classCategory: game
              gameId/gameTitle: cw
              gameType: mp
 
@@ -503,7 +500,7 @@ class API:
     class __VG(__GameDataCommons):
         """
          Vanguard class: A class to get players vanguard stats, vanguard combat history, a player's vanguard season loot, vanguard map list and specific vanguard match details
-             classCatogery: game
+             classCategory: game
              gameId/gameTitle: vg
              gameType: pm
 
@@ -522,7 +519,7 @@ class API:
     class __MW2(__GameDataCommons):
         """
         ModernWarfare 2 class: A class to get players modernwarfare 2 stats, modernwarfare 2 combat history, a player's modernwarfare 2 season loot, modernwarfare 2 map list and specific modernwarfare 2 match details
-            classCatogery: game
+            classCategory: game
             gameId/gameTitle: mw
             gameType: mp
 
@@ -614,7 +611,7 @@ class API:
     class __SHOP(_Common):
         """
          Shop class: A class to get bundle details and battle pass loot
-             classCatogery: other
+             classCategory: other
 
          Methods
          =======

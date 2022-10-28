@@ -757,7 +757,7 @@ class API:
     class __ALT(__common):
 
         async def searchAsync(self, platform, gamertag: str):
-            lookUpType, gamertag, platform = self._helper(platform, gamertag)
+            lookUpType, gamertag, platform = self._common__helper(platform, gamertag)
             data = await self._common__sendRequest(f"/crm/cod/v2/platform/{platform.value}/username/{gamertag}/search")
             return data
 

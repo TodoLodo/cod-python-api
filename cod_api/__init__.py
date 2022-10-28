@@ -340,9 +340,10 @@ class API:
                     returns details match details of type dict
         """
 
-        def __init__(self):
+        def __init__(self, doc):
             super().__init__()
-            if self.__doc__ is None:
+            if doc is None:
+                doc
                 self.__doc__ = super().__doc__
 
         @property

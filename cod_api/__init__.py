@@ -552,10 +552,7 @@ class API:
                 rawData = json.loads(rawData.text.replace(
                     'userInfo(', '').replace(');', ''))
 
-                data = {
-                    'userName': rawData['userInfo']['userName']
-                }
-                data['identities'] = []
+                data = {'userName': rawData['userInfo']['userName'], 'identities': []}
                 for i in rawData['identities']:
                     data['identities'].append({
                         'platform': i['provider'],

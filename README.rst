@@ -245,7 +245,8 @@ Full Profile History
 
 Any sub class of ``API``  that is of game catogery, has methods to check a player's combat history.
 Note that before calling any sub class methods of ``API`` you must be `logged in`_.
-Main method is ``fullData()`` which is available for ``ColdWar``, ``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes.
+Main method is ``fullData()`` and ``fullDataAsync()`` which is available for ``ColdWar``, ``ModernWarfare``,
+``ModernWarfare2``, ``Vanguard``, ``Warzone`` and ``Warzone2`` classes.
 
 Here's an example for retrieving **Warzone** full profile history of a player whose gamer tag is **Username#1234** on platform
 **Battlenet**:
@@ -258,7 +259,7 @@ Here's an example for retrieving **Warzone** full profile history of a player wh
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -283,11 +284,12 @@ Here's an example for retrieving **Warzone** full profile history of a player wh
 Combat History
 --------------
 
-Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` which are available for all ``ColdWar``,
-``ModernWarfare``, ``ModernWarfare2``, ``Vanguard``, ``Warzone`` and ``Warzone2`` classes.
+Main methods are ``combatHistory()`` and ``combatHistoryWithDate()`` for sync environments and ``combatHistoryAsync()``
+and ``combatHistoryWithDateAsync()`` for async environments which are available for all ``ColdWar``, ``ModernWarfare``,
+``ModernWarfare2``, ``Vanguard``, ``Warzone`` and ``Warzone2`` classes.
 
-The ``combatHistory()`` takes 2 input parameteres which are ``platform`` and ``gamertag`` of type `cod_api.platforms`_
-and string respectively.
+The ``combatHistory()`` and ``combatHistoryAsync()`` takes 2 input parameters which are ``platform`` and ``gamertag`` of
+type `cod_api.platforms`_ and string respectively.
 
 Here's an example for retrieving **Warzone** combat history of a player whose gamer tag is **Username#1234** on platform
 **Battlenet**:
@@ -299,7 +301,7 @@ Here's an example for retrieving **Warzone** combat history of a player whose ga
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -320,8 +322,8 @@ Here's an example for retrieving **Warzone** combat history of a player whose ga
 
     # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
-The ``combatHistoryWithDate()`` takes 4 input parameteres which are ``platform``, ``gamertag``, ``start`` and ``end`` of
-type `cod_api.platforms`_, string, int and int respectively.
+The ``combatHistoryWithDate()`` and ``combatHistoryWithDateAsync()`` takes 4 input parameteres which are ``platform``,
+``gamertag``, ``start`` and ``end`` of type `cod_api.platforms`_, string, int and int respectively.
 
 ``start`` and ``end`` parameters are utc timestamps in microseconds.
 
@@ -336,7 +338,7 @@ platform **Activision** with in the timestamps **1657919309** (Friday, 15 July 2
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -357,13 +359,14 @@ platform **Activision** with in the timestamps **1657919309** (Friday, 15 July 2
 
     # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
-Additionally the methods ``breakdown()`` and ``breakdownWithDate()`` can be used to retrieve combat history without
-details, where only the platform played on, game title, UTC timestamp, type ID, match ID and map ID is returned for
-every match. And just like ``combatHistory()`` and ``combatHistoryWithDate()`` these methods are available for all
-``ColdWar``, ``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes.
+Additionally the methods ``breakdown()`` and ``breakdownWithDate()`` for sync environments and ``breakdownAsync()`` and
+``breakdownWithDateAsync()`` for async environments, can be used to retrieve combat history without details, where only
+the platform played on, game title, UTC timestamp, type ID, match ID and map ID is returned for every match. These
+methods are available for all ``ColdWar``, ``ModernWarfare``, ``ModernWarfare2``, ``Vanguard``, ``Warzone`` and
+``Warzone2`` classes.
 
-The ``breakdown()`` takes 2 input parameteres which are ``platform`` and ``gamertag`` of type `cod_api.platforms`_ and
-string respectively.
+The ``breakdown()`` and `breakdownAsync()`` takes 2 input parameteres which are ``platform`` and ``gamertag`` of type
+`cod_api.platforms`_ and string respectively.
 
 Here's an example for retrieving **Warzone** combat history breakdown of a player whose gamer tag is **Username#1234**
 on platform **Battlenet**:
@@ -375,7 +378,7 @@ on platform **Battlenet**:
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -396,8 +399,8 @@ on platform **Battlenet**:
 
     # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
-The ``breakdownWithDate()`` takes 4 input parameteres which are ``platform``, ``gamertag``, ``start`` and ``end`` of
-type `cod_api.platforms`_, string, int and int respectively.
+The ``breakdownWithDate()`` and ``breakdownWithDateAsync()`` takes 4 input parameters which are ``platform``,
+``gamertag``, ``start`` and ``end`` of type `cod_api.platforms`_, string, int and int respectively.
 
 ``start`` and ``end`` parameters are utc timestamps in microseconds.
 
@@ -412,7 +415,7 @@ and **1657949309** (Saturday, 16 July 2022 05:28:29):
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -426,7 +429,7 @@ and **1657949309** (Saturday, 16 July 2022 05:28:29):
     # in an async function
     async def example():
         # retrieving combat history breakdown
-        hist_b = await api.Warzone.breakdownWithDateAsync(platforms.Battlenet, "Username#1234", 1657919309, 1657949309) # returns data of type dict
+        hist_b = await api.Warzone.breakdownWithDateAsync(platforms.Activision, "Username#1234567", 1657919309, 1657949309) # returns data of type dict
 
         # printing results to console
         print(hist_b)
@@ -436,13 +439,13 @@ and **1657949309** (Saturday, 16 July 2022 05:28:29):
 Match Details
 -------------
 
-To retrieve details of a specific match, the method ``matchInfo()`` can be used and this is available for all
-``ColdWar``, ``ModernWarfare``, ``Vanguard`` and ``Warzone`` classes. Details returned by this method contains
-additional data than that of details returned by the methods ``combatHistory()`` and ``combatHistoryWithDate()`` for a
-single match.
+To retrieve details of a specific match, the method ``matchInfo()`` for sync environments and ``matchInfoAsync()`` for
+async environments can be used. These methods are available for all ``ColdWar``, ``ModernWarfare``, ``ModernWarfare2``,
+``Vanguard``, ``Warzone`` and ``Warzone2`` classes. Details returned by this method contains additional data than that
+of details returned by the **combat history** methods for a single match.
 
-The ``matchInfo()`` takes 2 input parameteres which are ``platform`` and ``matchId`` of type `cod_api.platforms`_ and
-integer respectively.
+The ``matchInfo()`` and ``matchInfoAsync()`` takes 2 input parameters which are ``platform`` and ``matchId`` of type
+`cod_api.platforms`_ and integer respectively.
 
 *Optionally the match ID can be retrieved during your gameplay where it will be visible on bottom left corner*
 
@@ -456,7 +459,7 @@ on platform **Battlenet**:
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -480,11 +483,12 @@ on platform **Battlenet**:
 Season Loot
 -----------
 
-Using the ``seasonLoot()``  method a player's obtained season loot can be retrieved for a specific game and this method
-is available for ``ColdWar``, ``ModernWarfare`` and ``Vanguard`` classes.
+Using the ``seasonLoot()`` for sync environments and ``seasonLootAsync()`` for async environments, player's obtained
+season loot can be retrieved for a specific game and this method is available for ``ColdWar``, ``ModernWarfare``,
+``ModernWarfare2`` and ``Vanguard`` classes.
 
-The ``seasonLoot()`` takes 2 input parameteres which are ``platform`` and ``matchId`` of type `cod_api.platforms`_ and
-integer respectively.
+The ``seasonLoot()`` and ``seasonLootAsync()`` takes 2 input parameters which are ``platform`` and ``matchId`` of type
+`cod_api.platforms`_ and integer respectively.
 
 Here's an example for retrieving **ColdWar** season loot obtained by a player whose gamer tag is **Username#1234** on
 platform **Battlenet**:
@@ -496,7 +500,7 @@ platform **Battlenet**:
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -510,7 +514,7 @@ platform **Battlenet**:
     # in an async function
     async def example():
         # retrieving season loot
-        loot = await api.ColdWar.seasonLootAsync(platforms.Battlenet, 9484583876389482453) # returns data of type dict
+        loot = await api.ColdWar.seasonLootAsync(platforms.Battlenet, "Username#1234") # returns data of type dict
 
         # printing results to console
         print(loot)
@@ -520,10 +524,11 @@ platform **Battlenet**:
 Map List
 --------
 
-Using the ``mapList()`` method all the maps and its available modes can be retrieved for a specific game. This method is
-available for ``ColdWar``, ``ModernWarfare`` and ``Vanguard`` classes.
+Using the ``mapList()`` for sync environments and ``mapListAsync()`` for async environments, all the maps and its
+available modes can be retrieved for a specific game. These methods are available for ``ColdWar``, ``ModernWarfare``,
+``ModernWarfare2`` and ``Vanguard`` classes.
 
-The ``mapList()`` takes 1 input parameteres which is ``platform`` of type `cod_api.platforms`_.
+The ``mapList()`` and ``mapListAsync()`` takes 1 input parameters which is ``platform`` of type `cod_api.platforms`_.
 
 Here's an example for retrieving **Vanguard** map list and available modes respectively on platform PlayStation
 (**PSN**):
@@ -535,7 +540,7 @@ Here's an example for retrieving **Vanguard** map list and available modes respe
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -617,7 +622,7 @@ with
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     # retrieving user info
@@ -629,8 +634,8 @@ with
 User Friend Feed
 ----------------
 
-Using the ``friendFeed()`` method in sub class ``Me`` of ``API`` user's friend feed can be retrieved of the sso-token
-logged in with
+Using the methods, ``friendFeed()`` for sync environments and ``friendFeedAsync()`` for async environments, in sub class
+``Me`` of ``API``, user's friend feed can be retrieved of the sso-token logged in with
 
 .. code-block:: python
 
@@ -639,7 +644,7 @@ logged in with
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -663,8 +668,8 @@ logged in with
 User Event Feed
 ----------------
 
-Using the ``eventFeed()`` method in sub class ``Me`` of ``API`` user's event feed can be retrieved of the sso-token
-logged in with
+Using the methods ``eventFeed()`` for sync environments and ``eventFeedAsync()`` for async environments, in sub class
+``Me`` of ``API`` user's event feed can be retrieved of the sso-token logged in with
 
 .. code-block:: python
 
@@ -673,7 +678,7 @@ logged in with
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -697,8 +702,8 @@ logged in with
 User Identities
 ----------------
 
-Using the ``loggedInIdentities()`` method in sub class ``Me`` of ``API`` user's identities can be retrieved of the
-sso-token logged in with
+Using the methods ``loggedInIdentities()`` for sync environments and ``loggedInIdentitiesAsync()`` for async
+environments, in sub class ``Me`` of ``API`` user's identities can be retrieved of the sso-token logged in with
 
 .. code-block:: python
 
@@ -707,7 +712,7 @@ sso-token logged in with
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -731,8 +736,8 @@ sso-token logged in with
 User COD Points
 ----------------
 
-Using the ``codPoints()`` method in sub class ``Me`` of ``API`` user's cod points can be retrieved of the sso-token
-logged in with
+Using the methods ``codPoints()`` for sync environments and ``codPointsAsync()`` for async environments, in sub class
+``Me`` of ``API`` user's cod points can be retrieved of the sso-token logged in with
 
 .. code-block:: python
 
@@ -741,7 +746,7 @@ logged in with
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -765,8 +770,8 @@ logged in with
 User Accounts
 ----------------
 
-Using the ``connectedAccounts()`` method in sub class ``Me`` of ``API`` user's connected accounts can be retrieved of
-the sso-token logged in with
+Using the methods ``connectedAccounts()`` for sync environments and ``connectedAccountsAsync()`` for async environments,
+in sub class ``Me`` of ``API`` user's connected accounts can be retrieved of the sso-token logged in with
 
 .. code-block:: python
 
@@ -775,7 +780,7 @@ the sso-token logged in with
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync
@@ -799,8 +804,8 @@ the sso-token logged in with
 User settings
 ----------------
 
-Using the ``settings()`` method in sub class ``Me`` of ``API`` user's settings can be retrieved of the sso-token logged
-in with
+Using the methods ``settings()`` for sync environments and ``settingsAsync()`` for async environments, in sub class
+``Me`` of ``API`` user's settings can be retrieved of the sso-token logged in with
 
 .. code-block:: python
 
@@ -809,7 +814,7 @@ in with
     # initiating the API class
     api = API()
 
-    # loggin in with sso token
+    # login in with sso token
     api.login('your_sso_token')
 
     ## sync

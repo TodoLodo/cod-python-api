@@ -44,6 +44,16 @@ class friendActions(enum.Enum):
 
 
 class API:
+    """
+    Call Of Duty API Wrapper
+
+    Developed by Todo Lodo & Engineer152
+
+    Contributors
+    - Werseter
+
+    Source Code: https://github.com/TodoLodo/cod-python-api
+    """
     def __init__(self):
         # sub classes
         self.Warzone = self.__WZ()

@@ -97,7 +97,7 @@ Following importation and initiation of the class ``API``, its associated subcla
 Below are the available sub classes:
 
 +-------------------+----------+
-| sub class         | catogery |
+| sub class         | category |
 +===================+==========+
 |* `ColdWar`_       | game     |
 +-------------------+----------+
@@ -243,7 +243,7 @@ For a detailed description, ``__doc__`` (docstring) of each sub class can be cal
 Full Profile History
 --------------------
 
-Any sub class of ``API``  that is of game catogery, has methods to check a player's combat history.
+Any sub class of ``API``  that is of game category, has methods to check a player's combat history.
 Note that before calling any sub class methods of ``API`` you must be `logged in`_.
 Main method is ``fullData()`` and ``fullDataAsync()`` which is available for ``ColdWar``, ``ModernWarfare``,
 ``ModernWarfare2``, ``Vanguard``, ``Warzone`` and ``Warzone2`` classes.
@@ -322,7 +322,7 @@ Here's an example for retrieving **Warzone** combat history of a player whose ga
 
     # CALL THE example FUNCTION IN AN ASYNC ENVIRONMENT
 
-The ``combatHistoryWithDate()`` and ``combatHistoryWithDateAsync()`` takes 4 input parameteres which are ``platform``,
+The ``combatHistoryWithDate()`` and ``combatHistoryWithDateAsync()`` takes 4 input parameters which are ``platform``,
 ``gamertag``, ``start`` and ``end`` of type `cod_api.platforms`_, string, int and int respectively.
 
 ``start`` and ``end`` parameters are utc timestamps in microseconds.
@@ -365,7 +365,7 @@ the platform played on, game title, UTC timestamp, type ID, match ID and map ID 
 methods are available for all ``ColdWar``, ``ModernWarfare``, ``ModernWarfare2``, ``Vanguard``, ``Warzone`` and
 ``Warzone2`` classes.
 
-The ``breakdown()`` and `breakdownAsync()`` takes 2 input parameteres which are ``platform`` and ``gamertag`` of type
+The ``breakdown()`` and `breakdownAsync()`` takes 2 input parameters which are ``platform`` and ``gamertag`` of type
 `cod_api.platforms`_ and string respectively.
 
 Here's an example for retrieving **Warzone** combat history breakdown of a player whose gamer tag is **Username#1234**

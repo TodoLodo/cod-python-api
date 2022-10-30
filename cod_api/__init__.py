@@ -646,14 +646,14 @@ class API:
          """
 
         async def purchasableItemsAsync(self, game: games):
-            data = await self._Common__sendRequest(f"/inventory/v1/title/{game}/platform/uno/purchasable/public/en")
+            data = await self._Common__sendRequest(f"/inventory/v1/title/{game.value}/platform/uno/purchasable/public/en")
             return data
 
         def purchasableItems(self, game: games):
             return asyncio.run(self.purchasableItemsAsync(game))
 
         async def bundleInformationAsync(self, game: games, bundleId: int):
-            data = await self._Common__sendRequest(f"/inventory/v1/title/{game}/bundle/{bundleId}/en")
+            data = await self._Common__sendRequest(f"/inventory/v1/title/{game.value}/bundle/{bundleId}/en")
             return data
 
         def bundleInformation(self, game: games, bundleId: int):
@@ -661,7 +661,7 @@ class API:
 
         async def battlePassLootAsync(self, game: games, platform: platforms, season: int):
             data = await self._Common__sendRequest(
-                f"/loot/title/{game}/platform/{platform.value}/list/loot_season_{season}/en")
+                f"/loot/title/{game.value}/platform/{platform.value}/list/loot_season_{season}/en")
             return data
 
         def battlePassLoot(self, game: games, platform: platforms, season: int):
